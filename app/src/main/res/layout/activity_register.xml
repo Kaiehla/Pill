@@ -24,18 +24,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_check"
+                android:layout_width="75dp"
+                android:layout_height="69dp"
+                android:src="@drawable/icon_pill"
                 android:layout_centerVertical="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MediPill"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                android:textColor="@color/white"
+                android:text="Pill"
+                android:textSize="40sp"
+                style="@style/title.palepink"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
@@ -62,9 +61,9 @@
                 android:layout_height="wrap_content"
                 android:text="Create your account"
                 android:textSize="15sp"
-                android:textStyle="bold"
+                style="@style/title.twilight"
                 android:layout_gravity="center"
-                android:textColor="@color/Twilight"/>
+                />
 
             <!-- Name -->
             <View
@@ -134,7 +133,8 @@
                 android:id="@+id/btnCreateAccount"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/Twilight"
+                style="@style/title.twilight"
+                android:backgroundTint="@color/PalePink"
                 android:text="Create Account"
                 android:textSize="16dp"
                 app:cornerRadius="12dp" />

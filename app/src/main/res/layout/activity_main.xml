@@ -25,10 +25,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MediPill"
-            android:textStyle="bold"
+            android:text="Pill"
+            style="@style/title.twilight"
             android:textSize="40sp"
-            android:textColor="@color/Twilight"/>
+            />
 
     </LinearLayout>
 

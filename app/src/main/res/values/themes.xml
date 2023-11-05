@@ -1,8 +1,56 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Pill" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Pill" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+<!--    Poppins Font Styles -->
+    <style name="pop.regular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="pop.bold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="pop.ebold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_extrabold</item>
+    </style>
+
+<!--    Title Subtitle Styles -->
+    <style name="title.twilight" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/Twilight</item>
+    </style>
+
+    <style name="title.white" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="title.palepink" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/PalePink</item>
+    </style>
+
+    <style name="sub.twilight" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/Twilight</item>
+    </style>
+
+    <style name="sub.palepink" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/PalePink</item>
+    </style>
+
+    <style name="sub.black" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="sub.white" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Theme.Pill" parent="Base.Theme.Pill" />

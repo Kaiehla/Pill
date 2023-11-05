@@ -22,17 +22,17 @@
         android:layout_marginBottom="-89dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_check"/>
+            android:layout_width="75dp"
+            android:layout_height="69dp"
+            android:src="@drawable/icon_pill" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Habit"
-            android:textStyle="bold"
-            android:textSize="32sp"
-            android:textColor="@color/white"/>
+            android:text="Pill"
+            style="@style/title.palepink"
+            android:textSize="40sp"
+            />
 
         <View
             android:layout_width="wrap_content"
@@ -73,10 +73,9 @@
                 android:layout_height="wrap_content"
                 android:text="Log in with email"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="@color/Twilight"/>
-
+                style="@style/title.twilight"
+                />
             <!-- Email -->
             <View
                 android:layout_width="wrap_content"
@@ -123,9 +122,10 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/Twilight"
+                android:backgroundTint="@color/PalePink"
                 android:text="Login"
                 android:textSize="20dp"
+                style="@style/title.twilight"
                 app:cornerRadius="12dp" />
 
             <View
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="12dp"
-                android:text="New to Habit? Register Now"
+                android:text="New to Pill? Register Now"
                 android:textColor="@color/Twilight" />
 
 
