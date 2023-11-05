@@ -33,6 +33,11 @@
         <item name="android:textColor">@color/PalePink</item>
     </style>
 
+    <style name="title.oreo" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/Oreo</item>
+    </style>
+
     <style name="sub.twilight" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/Twilight</item>
@@ -54,4 +59,9 @@
     </style>
 
     <style name="Theme.Pill" parent="Base.Theme.Pill" />
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/Blood</item>
+    </style>
+
 </resources>

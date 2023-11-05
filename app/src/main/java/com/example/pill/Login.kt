@@ -45,10 +45,10 @@ class Login : AppCompatActivity() {
     private fun loginDatabase(email: String, password: String){
         val userExists = databaseHelper.readUser(email, password)
         if(userExists){
-            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-//            val HabitActivity = Intent(this, HabitActivity::class.java)
-//            startActivity(HabitActivity)
-//            finish()
+            //Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+            val homeActivity = Intent(this, Home::class.java)
+            startActivity(homeActivity)
+            finish()
         } else {
             Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
         }

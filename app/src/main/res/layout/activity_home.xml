@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_container"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu"
+        android:background="@color/WhiteBG"
+        app:itemIconSize="36dp"/>
+<!--        app:itemIconTint="@color/Gray"-->
+<!--        app:itemTextColor="@color/Gray"-->
+
+<!--        app:itemRippleColor="@color/Blood"-->
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
