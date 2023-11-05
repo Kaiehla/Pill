@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Twilight"
+    android:orientation="vertical"
+    tools:context=".Register">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_above="@id/card_view"
+        android:padding="28dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_check"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MediPill"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
+        android:layout_marginBottom="-20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="28dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create your account"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/Twilight"/>
+
+            <!-- Name -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:alpha="0.7"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etFName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/icon_person"
+                android:hint="Juan Dimagiba"
+                android:inputType="textPersonName|textCapWords" />
+
+            <!-- Email -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:alpha="0.7"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/icon_email"
+                android:hint="juandimagiba@gmail.com"
+                android:inputType="textEmailAddress" />
+
+            <!-- Password -->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:alpha="0.7"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/icon_shpass"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <Button
+                android:id="@+id/btnCreateAccount"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/Twilight"
+                android:text="Create Account"
+                android:textSize="16dp"
+                app:cornerRadius="12dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:alpha="0.7"
+                    android:text="Or sign in with" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <Button
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/icon_google"
+                android:text="Google"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/Twilight"
+                app:strokeWidth="1dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Already have an account? Sign in"
+                android:textColor="@color/Twilight" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
