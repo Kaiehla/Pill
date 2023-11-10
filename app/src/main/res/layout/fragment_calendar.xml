@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalendarFragment">
+    android:background="@color/SubtleBG"
+    android:orientation="vertical"
+    tools:context=".CalendarFragment"
+    android:padding="28dp"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="36sp"
+            style="@style/title.twilight"
+            android:lineHeight="50sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="58dp"
+            android:layout_height="51dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_pill" />
+    </RelativeLayout>
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Calendar Fragment"
-        android:textSize="36sp"
-        style="@style/title.twilight"
-        android:gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pill Stats"
+        style="@style/pop.bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="28dp">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
