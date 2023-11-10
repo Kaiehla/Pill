@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         //Splash screen
         Handler().postDelayed({
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }, 2000)
     }
