@@ -8,6 +8,12 @@
         />
 
     <item
+        android:id="@+id/bottom_addDose"
+        android:title=""
+        android:icon="@drawable/icon_add"
+        />
+
+    <item
         android:id="@+id/bottom_cal"
         android:title="Calendar"
         android:icon="@drawable/item_selection_cal"

@@ -22,7 +22,10 @@
         app:menu="@menu/bottom_menu"
         android:background="@color/WhiteBG"
         app:itemIconSize="36dp"
+        app:itemTextColor="@drawable/icon_tint_selector"
+        app:itemIconTint="@drawable/icon_tint_selector"
         app:itemTextAppearanceActive="@color/Blood"
+        app:labelVisibilityMode="selected"
         />
 
 
