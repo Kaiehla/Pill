@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputEditText
 
 class Login : AppCompatActivity() {
 
@@ -23,8 +24,8 @@ class Login : AppCompatActivity() {
         databaseHelper = DBHelper(this)
 
         btnLogin.setOnClickListener{
-            val loginEmail = findViewById<EditText>(R.id.etEmail).text.toString()
-            val loginPassword = findViewById<EditText>(R.id.etPassword).text.toString()
+            val loginEmail = findViewById<TextInputEditText>(R.id.etEmail).text.toString()
+            val loginPassword = findViewById<TextInputEditText>(R.id.etPassword).text.toString()
 
             loginDatabase(loginEmail, loginPassword)
         }
