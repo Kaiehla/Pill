@@ -77,18 +77,32 @@
                 android:alpha="0.7"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etFName"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_person"
-                android:hint="Juan Dimagiba"
-                android:inputType="textPersonName|textCapWords" />
+                android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/SubtleBG"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/icon_person"
+                app:startIconTint="@color/Twilight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFName"
+                    android:hint="Juan Dimagiba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,18 +111,32 @@
                 android:alpha="0.7"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etEmail"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_email"
-                android:hint="juandimagiba@gmail.com"
-                android:inputType="textEmailAddress" />
+                android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/SubtleBG"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/icon_email"
+                app:startIconTint="@color/Twilight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:hint="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
+                android:layout_height="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,13 +145,27 @@
                 android:alpha="0.7"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etPassword"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_shpass"
-                android:hint="Password"
-                android:inputType="textPassword" />
+                android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/SubtleBG"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/icon_lock"
+                app:startIconTint="@color/Twilight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:hint="Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:layout_width="wrap_content"

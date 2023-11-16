@@ -27,7 +27,12 @@ class Login : AppCompatActivity() {
             val loginEmail = findViewById<TextInputEditText>(R.id.etEmail).text.toString()
             val loginPassword = findViewById<TextInputEditText>(R.id.etPassword).text.toString()
 
-            loginDatabase(loginEmail, loginPassword)
+            //validation if user input no value
+            if(loginEmail.trim()!="" && loginPassword.trim()!="")
+                loginDatabase(loginEmail, loginPassword)
+            else
+                Toast.makeText(this, "Please complete all fields to login", Toast.LENGTH_SHORT).show()
+
         }
 
         tvRegister.setOnClickListener{
@@ -51,7 +56,7 @@ class Login : AppCompatActivity() {
             startActivity(homeActivity)
             finish()
         } else {
-            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Email and Password do not match, Please try again.", Toast.LENGTH_SHORT).show()
         }
 
     }

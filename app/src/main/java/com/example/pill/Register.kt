@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputEditText
 
 class Register : AppCompatActivity() {
     private lateinit var databaseHelper: DBHelper
@@ -21,11 +22,15 @@ class Register : AppCompatActivity() {
         databaseHelper = DBHelper(this)
 
         btnRegister.setOnClickListener{
-            val userFName = findViewById<EditText>(R.id.etFName).text.toString()
-            val userEmail = findViewById<EditText>(R.id.etEmail).text.toString()
-            val userPassword = findViewById<EditText>(R.id.etPassword).text.toString()
+            val userFName = findViewById<TextInputEditText>(R.id.etFName).text.toString()
+            val userEmail = findViewById<TextInputEditText>(R.id.etEmail).text.toString()
+            val userPassword = findViewById<TextInputEditText>(R.id.etPassword).text.toString()
 
-            signupDatabase(userFName, userEmail, userPassword)
+            //validation if user input no value
+            if(userFName.trim()!="" && userEmail.trim()!="" && userPassword.trim()!="")
+                signupDatabase(userFName, userEmail, userPassword)
+            else
+                Toast.makeText(this, "Please complete all fields to continue", Toast.LENGTH_SHORT).show()
         }
 
         tvLogin.setOnClickListener{
@@ -43,7 +48,8 @@ class Register : AppCompatActivity() {
             startActivity(loginActivity)
             finish()
         } else{
-            Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show()
+            //validation if register process failed
+            Toast.makeText(this, "Register Account Failed, Please try again", Toast.LENGTH_SHORT).show()
         }
     }
 }
