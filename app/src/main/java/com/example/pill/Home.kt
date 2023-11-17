@@ -1,5 +1,6 @@
 package com.example.pill
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pill.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Home : AppCompatActivity() {
 
@@ -36,16 +38,18 @@ class Home : AppCompatActivity() {
                     replaceFragment(CalendarFragment())
                     true
                 }
-                //in case na gusto magkaron ng add button sa nav instead of fab
-//                R.id.bottom_add -> {
-//                    Toast.makeText(this, "Add Medication", Toast.LENGTH_SHORT).show()
-//                    true
-//                }
                 else -> false
             }
         }
         //default fragment
         replaceFragment(HomeFragment())
+
+        //fab onclicklistener to addDosage Activity
+        val btnaddDosage = findViewById<FloatingActionButton>(R.id.fabAddDosage)
+        btnaddDosage.setOnClickListener {
+            val addDoseIntent = Intent(this, addDosage::class.java)
+            startActivity(addDoseIntent)
+        }
 
     }
 
