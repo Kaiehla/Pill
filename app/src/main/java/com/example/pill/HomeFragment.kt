@@ -5,13 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -40,16 +36,16 @@ class HomeFragment : Fragment() {
         //recycler view
         imageList = arrayOf(
             R.drawable.icon_pill,
+            R.drawable.icon_cal_filled,
             R.drawable.icon_pill,
             R.drawable.icon_pill,
+            R.drawable.icon_uncheck,
+            R.drawable.icon_home_filled,
             R.drawable.icon_pill,
+            R.drawable.icon_uncheck,
             R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
+            R.drawable.icon_home_filled,
+            R.drawable.icon_uncheck,
             R.drawable.icon_pill
         )
 
@@ -68,6 +64,7 @@ class HomeFragment : Fragment() {
             "Vitamin E",
         )
 
+
         recyclerView = viewFragment.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
@@ -77,25 +74,25 @@ class HomeFragment : Fragment() {
         getData()
 
         //Forda onclick listener ng recycler view cards
-        myAdapter = AdapterClass(dataList)
-        recyclerView.adapter = myAdapter
+//        myAdapter = AdapterClass(dataList)
+//        recyclerView.adapter = myAdapter
 
-        myAdapter.onItemClick = {
-            //fragment to fragment intent
-//            val fragmentB = CalendarFragment()
-//            activity?.getSupportFragmentManager()?.beginTransaction()
-//                ?.replace(R.id.frame_container, fragmentB, "fragmnetId")
-//                ?.commit();
-//            Toast.makeText(activity, "Hello", Toast.LENGTH_SHORT).show()
-
-//            activity?.supportFragmentManager?.beginTransaction()?.let {
-//                    it1 -> DetailSheet().show(it1, "bottomSheet")
-//            }
-
-            val detailModal = DetailSheet()
-            activity?.supportFragmentManager?.let{detailModal.show(it, "detailModalSheet")}
-
-        }
+//        myAdapter.onItemClick = {
+//            //fragment to fragment intent
+////            val fragmentB = CalendarFragment()
+////            activity?.getSupportFragmentManager()?.beginTransaction()
+////                ?.replace(R.id.frame_container, fragmentB, "fragmnetId")
+////                ?.commit();
+////            Toast.makeText(activity, "Hello", Toast.LENGTH_SHORT).show()
+//
+////            activity?.supportFragmentManager?.beginTransaction()?.let {
+////                    it1 -> DetailSheet().show(it1, "bottomSheet")
+////            }
+//
+//            val detailModal = DetailSheet()
+//            activity?.supportFragmentManager?.let{detailModal.show(it, "detailModalSheet")}
+//
+//        }
 
 
         // Inflate the layout for this fragment
@@ -109,7 +106,18 @@ class HomeFragment : Fragment() {
             dataList.add(dataClass)
         }
 
-        recyclerView.adapter = AdapterClass(dataList)
+        //onitem click listener ni recycler view
+        var adapter = AdapterClass(dataList)
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(object : AdapterClass.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                //dito pinapasa yung data from recyclerview to detail sheet dahil sa datalist parameter
+                val detailModal = DetailSheet(dataList[position])
+                activity?.supportFragmentManager?.let{detailModal.show(it, "detailModalSheet")}
+            }
+        })
+
+
     }
 
 }

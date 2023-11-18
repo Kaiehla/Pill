@@ -10,17 +10,33 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AdapterClass(private val dataList:ArrayList<DataClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
 
-    var onItemClick: ((DataClass) -> Unit)? = null
+//    var onItemClick: ((DataClass) -> Unit)? = null
 
-    class ViewHolderClass(itemView: View): RecyclerView.ViewHolder(itemView) {
+    private lateinit var mListener: onItemClickListener
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: Any){
+        mListener = listener as onItemClickListener
+    }
+
+    class ViewHolderClass(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView) {
         val rvImage: ImageView = itemView.findViewById(R.id.image)
         val rvTitle: TextView = itemView.findViewById(R.id.title)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+
+        }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        return ViewHolderClass(itemView)
+        return ViewHolderClass(itemView, mListener)
     }
 
     override fun getItemCount(): Int {
@@ -34,8 +50,9 @@ class AdapterClass(private val dataList:ArrayList<DataClass>): RecyclerView.Adap
         holder.rvTitle.text = currentItem.dataTitle
 
         //pangclick sa item sa loob ng recyclerview
-        holder.itemView.setOnClickListener{
-            onItemClick?.invoke(currentItem)
-        }
+//        holder.itemView.setOnClickListener{
+//            onItemClick?.invoke(currentItem)
+//        }
+
     }
 }

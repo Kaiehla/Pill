@@ -1,16 +1,19 @@
 package com.example.pill
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class DetailSheet : BottomSheetDialogFragment() {
+class DetailSheet(private val dataClass: DataClass) : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +21,18 @@ class DetailSheet : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail_sheet, container, false)
+        //getting ids from detailsheet xml
+        var DoseName: TextView = view.findViewById(R.id.sheetDoseName)
+        var DoseImage: ImageView = view.findViewById(R.id.sheetDoseImage)
+
+        //getting data from dataclass parameter based on their position and setting it to their placeholder
+        DoseName.text = dataClass.dataTitle
+        DoseImage.setImageResource(dataClass.dataImage)
+
 
 
         return view
@@ -49,6 +60,8 @@ class DetailSheet : BottomSheetDialogFragment() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
+
+
     }
 
 
