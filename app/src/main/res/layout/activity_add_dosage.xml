@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AddMedication"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#98C1FF"
@@ -26,15 +27,14 @@
         android:id="@+id/imageView"
         android:layout_width="45dp"
         android:layout_height="43dp"
-
         android:layout_marginEnd="120dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_pill" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/MedicationName"
         android:layout_width="382dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
@@ -44,8 +44,8 @@
         android:ems="10"
         android:fontFamily="@font/actor"
         android:gravity="center"
+        android:hint="Input Name"
         android:inputType="text"
-        android:text="Input Name"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.413"
@@ -110,10 +110,10 @@
         android:background="#E8ABC3"
         android:backgroundTint="#E8ABC3"
         android:ems="10"
-        android:gravity="center"
         android:fontFamily="@font/actor"
+        android:gravity="center"
+        android:hint="input here"
         android:inputType="text"
-        android:text="input here"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintStart_toStartOf="parent" />
@@ -128,9 +128,9 @@
         android:backgroundTint="#E8ABC3"
         android:ems="10"
         android:fontFamily="@font/actor"
-        android:inputType="text"
-        android:text="Input date"
         android:gravity="center"
+        android:hint="Input date"
+        android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -138,16 +138,18 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="72dp"
         android:fontFamily="sans-serif-medium"
         android:text="Reccurence"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/_dynamic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UnknownId" />
 
     <Spinner
+        android:id="@+id/spinner"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginEnd="44dp"
@@ -223,6 +225,7 @@
         android:backgroundTint="#E8ABC3"
         android:fontFamily="@font/poppins"
         android:text="Next"
+        android:onClick="toConfirmation"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

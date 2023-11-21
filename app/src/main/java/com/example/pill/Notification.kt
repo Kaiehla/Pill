@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pill.R
 
-class Notification : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +38,7 @@ class Notification : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         takeMedicineButton.gravity = Gravity.CENTER
-        takeMedicineButton.setBackgroundResource(R.color.white)
+        takeMedicineButton.setBackgroundResource(R.color.purple_700)
         takeMedicineButton.text = "Take medicine"
 
         val imageView = ImageView(this)
