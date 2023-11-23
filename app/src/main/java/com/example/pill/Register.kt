@@ -25,12 +25,18 @@ class Register : AppCompatActivity() {
             val userFName = findViewById<TextInputEditText>(R.id.etFName).text.toString()
             val userEmail = findViewById<TextInputEditText>(R.id.etEmail).text.toString()
             val userPassword = findViewById<TextInputEditText>(R.id.etPassword).text.toString()
+            val userConfirmPassword = findViewById<TextInputEditText>(R.id.etConfirmPassword).text.toString()
 
             //validation if user input no value
-            if(userFName.trim()!="" && userEmail.trim()!="" && userPassword.trim()!="")
-                signupDatabase(userFName, userEmail, userPassword)
+            //if may laman lahat and match si password and confirm password pasok boom
+            if(userFName.trim()!="" && userEmail.trim()!="" && userPassword.trim()!="") {
+                if (userPassword.trim()==userConfirmPassword.trim())
+                    signupDatabase(userFName, userEmail, userPassword)
+                else
+                    Toast.makeText(this, "Try Again! Password and Confirm Password do not match", Toast.LENGTH_LONG).show()
+            }
             else
-                Toast.makeText(this, "Please complete all fields to continue", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Try Again! Please complete all fields to continue", Toast.LENGTH_LONG).show()
         }
 
         tvLogin.setOnClickListener{

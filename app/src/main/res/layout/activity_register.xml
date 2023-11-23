@@ -26,13 +26,13 @@
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="69dp"
-                android:src="@drawable/icon_pill"
+                android:src="@drawable/logo_filled"
                 android:layout_centerVertical="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pill"
+                android:text="Sign Up"
                 android:textSize="40sp"
                 style="@style/title.palepink"
                 android:layout_centerVertical="true"
@@ -68,7 +68,7 @@
             <!-- Name -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"/>
+                android:layout_height="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,9 +167,43 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Confirm Password -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"/>
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:alpha="0.7"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/SubtleBG"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/icon_lock"
+                app:startIconTint="@color/Twilight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:hint="Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
 
             <Button
                 android:id="@+id/btnCreateAccount"
@@ -177,60 +211,30 @@
                 android:layout_height="60dp"
                 style="@style/title.twilight"
                 android:backgroundTint="@color/PalePink"
-                android:text="Create Account"
+                android:text="Create an Account"
                 android:textSize="16dp"
                 app:cornerRadius="12dp" />
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"/>
+                android:layout_height="25dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <View
-                    android:layout_width="100dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/black"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:alpha="0.7"
-                    android:text="Or sign in with" />
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"/>
 
-            <Button
-                android:id="@+id/btnGoogle"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/icon_google"
-                android:text="Google"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/Twilight"
-                app:strokeWidth="1dp" />
+
 
             <View
                 android:layout_width="wrap_content"

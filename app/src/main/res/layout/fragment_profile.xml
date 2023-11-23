@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SubtleBG"
+    tools:context=".ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:orientation="vertical"
+        android:padding="28dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello,"
+                android:textSize="36sp"
+                style="@style/title.twilight"
+                android:lineHeight="50sp"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textSize="28sp"
+                style="@style/sub.twilight"
+                android:layout_marginTop="55dp"
+                android:layout_alignParentStart="true"
+                />
+
+            <ImageView
+                android:layout_width="58dp"
+                android:layout_height="51dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icon_pill" />
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dose Stats"
+            style="@style/pop.bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnHistory"
+            style="@style/sub.twilight"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/white"
+            android:elegantTextHeight="true"
+            android:gravity="start|center_vertical"
+            android:text="Dose History"
+            android:textSize="15dp"
+            app:cornerRadius="12dp"
+            tools:ignore="TextSizeCheck"
+            android:drawableEnd="@drawable/icon_next"
+            android:layout_marginBottom="20dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            style="@style/pop.bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnEditUser"
+            style="@style/sub.twilight"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/white"
+            android:elegantTextHeight="true"
+            android:gravity="start|center_vertical"
+            android:text="User Profile"
+            android:textSize="15dp"
+            app:cornerRadius="12dp"
+            android:drawableEnd="@drawable/icon_next"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/btnResetAll"
+            style="@style/sub.twilight"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/white"
+            android:elegantTextHeight="true"
+            android:gravity="start|center_vertical"
+            android:text="Reset All Progress"
+            android:textSize="15dp"
+            app:cornerRadius="12dp"
+            android:layout_marginTop="30dp"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#0D017A"
+            android:text="Logout"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+
+
+
+
+</ScrollView>

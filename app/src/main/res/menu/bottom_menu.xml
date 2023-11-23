@@ -13,8 +13,8 @@
         />
 
     <item
-        android:id="@+id/bottom_cal"
-        android:title="Calendar"
+        android:id="@+id/bottom_profile"
+        android:title="Profile"
         android:icon="@drawable/item_selection_cal"
          />
 

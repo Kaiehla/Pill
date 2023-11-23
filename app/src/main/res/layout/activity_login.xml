@@ -22,34 +22,20 @@
         android:layout_marginBottom="-89dp">
 
         <ImageView
-            android:layout_width="75dp"
-            android:layout_height="69dp"
-            android:src="@drawable/icon_pill" />
+            android:layout_width="163dp"
+            android:layout_height="137dp"
+            android:src="@drawable/logo_filled" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pill"
-            style="@style/title.palepink"
+        <ImageView
+            android:layout_width="166dp"
+            android:layout_height="66dp"
+            android:src="@drawable/logo_everydose"
             android:textSize="40sp"
-            />
+            android:tint="@color/white" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="50dp"/>
-
-        <Button
-            android:id="@+id/btnGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/white"
-            android:text="Continue with Google"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            app:cornerRadius="12dp"
-            android:drawableLeft="@drawable/icon_google"
-            android:layout_alignParentBottom="true"
-            />
 
     </LinearLayout>
 
@@ -79,7 +65,7 @@
             <!-- Email -->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"/>
+                android:layout_height="15dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -164,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="12dp"
-                android:text="New to Pill? Register Now"
+                android:text="New to EveryDose? Register Now"
                 android:textColor="@color/Twilight" />
 
 

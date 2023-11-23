@@ -28,8 +28,8 @@ class Home : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
-                R.id.bottom_cal -> {
-                    replaceFragment(CalendarFragment())
+                R.id.bottom_profile -> {
+                    replaceFragment(ProfileFragment())
                     true
                 }
                 else -> false
