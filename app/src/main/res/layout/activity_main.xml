@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/PalePink"
+    android:background="@color/SubtleBG"
     android:orientation="vertical"
-    android:layout_gravity="center"
     android:padding="28dp"
     tools:context=".MainActivity">
 
@@ -14,22 +13,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="28dp">
 
         <ImageView
-            android:layout_width="138dp"
-            android:layout_height="120dp"
-            android:src="@drawable/icon_pill" />
+            android:layout_width="184dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/logo_filled" />
+
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="53dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="180dp"
+            android:src="@drawable/logo_everydose" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pill"
-            style="@style/title.twilight"
-            android:textSize="40sp"
-            />
+            android:text="Your Personal Pill Reminder"
+            style="@style/title.oreo"
+            android:layout_gravity="center"
+            android:textSize="16sp"/>
 
     </LinearLayout>
+
+
 
 </LinearLayout>
