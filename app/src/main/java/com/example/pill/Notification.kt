@@ -32,17 +32,17 @@ class Notification : AppCompatActivity() {
         textView.setTypeface(null, Typeface.BOLD)
 
         val takeMedicineButton = Button(this)
-        takeMedicineButton.id = R.id.takeMedicineButton
+        takeMedicineButton.id = R.id.takeButton
         takeMedicineButton.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         takeMedicineButton.gravity = Gravity.CENTER
-        takeMedicineButton.setBackgroundResource(R.color.white)
+        takeMedicineButton.setBackgroundResource(R.color.purple_700)
         takeMedicineButton.text = "Take medicine"
 
         val imageView = ImageView(this)
-        imageView.id = R.id.imageView5
+        imageView.id = R.id.pillImage
         imageView.layoutParams = LinearLayout.LayoutParams(
             375,
             31
@@ -50,7 +50,7 @@ class Notification : AppCompatActivity() {
         imageView.setImageResource(R.drawable.icon_pill)
 
         val remindLaterButton = Button(this)
-        remindLaterButton.id = R.id.remindLaterButton
+        remindLaterButton.id = R.id.remindButton
         remindLaterButton.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT

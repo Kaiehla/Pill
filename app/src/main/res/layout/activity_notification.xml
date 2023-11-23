@@ -17,21 +17,22 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/takeMedicineButton"
+        android:id="@+id/takeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="#FF3B48A1"
+        android:onClick="nextButtonClicked"
         android:text="Take medicine" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/pillImage"
         android:layout_width="375dp"
         android:layout_height="31dp"
         app:srcCompat="@drawable/icon_pill" />
 
     <Button
-        android:id="@+id/remindLaterButton"
+        android:id="@+id/remindButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
