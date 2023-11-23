@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pill.R
 
-class MainActivity : AppCompatActivity() {
+class Notification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         textView.setTypeface(null, Typeface.BOLD)
 
         val takeMedicineButton = Button(this)
-        takeMedicineButton.id = R.id.takeMedicineButton
+        takeMedicineButton.id = R.id.takeButton
         takeMedicineButton.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         takeMedicineButton.text = "Take medicine"
 
         val imageView = ImageView(this)
-        imageView.id = R.id.imageView5
+        imageView.id = R.id.pillImage
         imageView.layoutParams = LinearLayout.LayoutParams(
             375,
             31
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         imageView.setImageResource(R.drawable.icon_pill)
 
         val remindLaterButton = Button(this)
-        remindLaterButton.id = R.id.remindLaterButton
+        remindLaterButton.id = R.id.remindButton
         remindLaterButton.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
