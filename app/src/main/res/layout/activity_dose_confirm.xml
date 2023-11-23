@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SubtleBG"
+    tools:context=".DoseConfirm"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="622dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp">
+
+        <TextView
+            style="@style/title.twilight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Done!"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/doseDetail"
+            style="@style/sub.black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You're now set to take 2 dose of PillName,\ndaily until Novemeber 23, 2022"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/Twilight"
+        android:text="Confirm"
+        android:textSize="20dp"
+        style="@style/title.white"
+        app:cornerRadius="12dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"/>
+
+</LinearLayout>

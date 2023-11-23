@@ -13,13 +13,16 @@
         android:theme="@style/Theme.Pill"
         tools:targetApi="31">
         <activity
+            android:name=".DoseConfirm"
+            android:exported="false" />
+        <activity
             android:name=".DetailActivity"
             android:exported="false" />
         <activity
             android:name=".Notification"
             android:exported="false" />
         <activity
-            android:name=".addDosage"
+            android:name=".addDose"
             android:exported="false" />
         <activity
             android:name=".Home"

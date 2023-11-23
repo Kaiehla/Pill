@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SubtleBG"
+    tools:context=".addDose"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_previous"
+            android:contentDescription="fabToHome"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            style="@style/title.twilight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Medication"
+            android:textSize="28sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="28dp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp"
+        android:paddingTop="10dp"
+        >
+
+        <!-- Pill Type Radio Button Image -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pill Type"
+            android:alpha="0.7"
+            android:textStyle="bold"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbRound"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:paddingTop="5dp"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/icon_pill"
+                android:text="Round"
+                android:textAlignment="center"
+                android:textSize="11sp"
+                android:checked="true"
+                android:background="@drawable/custom_radio_selector"/>
+
+            <RadioButton
+                android:id="@+id/rbCapsule"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:paddingTop="5dp"
+                android:layout_marginStart="10dp"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/icon_capsule"
+                android:text="Capsule"
+                android:textAlignment="center"
+                android:textSize="11sp"
+                android:background="@drawable/custom_radio_selector"/>
+
+            <RadioButton
+                android:id="@+id/rbBottle"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:paddingTop="5dp"
+                android:layout_marginStart="10dp"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/icon_bottle_trans"
+                android:text="Bottle"
+                android:textAlignment="center"
+                android:textSize="11sp"
+                android:background="@drawable/custom_radio_selector"/>
+
+            <RadioButton
+                android:id="@+id/rbInjection"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:paddingTop="5dp"
+                android:layout_marginStart="10dp"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/icon_injection"
+                android:text="Injection"
+                android:textAlignment="center"
+                android:textSize="11sp"
+                android:background="@drawable/custom_radio_selector"/>
+
+
+        </RadioGroup>
+        <!-- Pill Name -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pill Name"
+            android:alpha="0.7"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            app:hintEnabled="false"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPillName"
+                android:hint="Biogesic, 10mg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Dosage and Recurrence -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.7"
+                android:text="Dosage"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recurrence"
+                android:alpha="0.7"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDosage"
+                    android:layout_width="157dp"
+                    android:layout_height="wrap_content"
+                    android:hint="1 pill"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbDaily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="a Day"
+                    android:layout_marginRight="15dp"
+                    android:checked="true"/>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbWeekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="a Week"
+                    android:layout_marginRight="15dp"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- End Date -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Date"
+            android:alpha="0.7"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            app:hintEnabled="false"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEndDate"
+                android:hint="November 23, 2023"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Times of the Day -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Times of the Day"
+            android:alpha="0.7"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="20dp"
+            app:chipSpacingVertical="0dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMorning"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="Morning"
+                style="@style/Widget.Material3.Chip.Filter"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAfternoon"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="Afternoon"
+                style="@style/Widget.Material3.Chip.Filter"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEvening"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="Evening"
+                style="@style/Widget.Material3.Chip.Filter"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDawn"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="Dawn"
+                style="@style/Widget.Material3.Chip.Filter"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+<!-- Next Button -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/Twilight"
+            android:text="Next"
+            android:textSize="20dp"
+            style="@style/sub.white"
+            app:cornerRadius="12dp"
+            android:layout_marginTop="36dp"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

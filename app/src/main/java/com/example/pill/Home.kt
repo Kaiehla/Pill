@@ -3,13 +3,7 @@ package com.example.pill
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.pill.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -47,7 +41,7 @@ class Home : AppCompatActivity() {
         //fab onclicklistener to addDosage Activity
         val btnaddDosage = findViewById<FloatingActionButton>(R.id.fabAddDosage)
         btnaddDosage.setOnClickListener {
-            val addDoseIntent = Intent(this, addDosage::class.java)
+            val addDoseIntent = Intent(this, addDose::class.java)
             startActivity(addDoseIntent)
         }
 
