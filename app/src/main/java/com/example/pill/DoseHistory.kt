@@ -3,11 +3,10 @@ package com.example.pill
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.widget.Button
+import android.provider.ContactsContract.Data
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pill.databinding.ActivityDoseHistoryBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DoseHistory : AppCompatActivity() {
@@ -60,7 +59,6 @@ class DoseHistory : AppCompatActivity() {
             "Vitamin D",
             "Vitamin E",
         )
-
 
 
         recyclerView = findViewById(R.id.historyRecycler)

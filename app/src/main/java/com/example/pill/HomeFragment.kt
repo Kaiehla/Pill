@@ -1,6 +1,5 @@
 package com.example.pill
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class HomeFragment : Fragment() {
@@ -33,7 +31,7 @@ class HomeFragment : Fragment() {
         val viewFragment = inflater.inflate(R.layout.fragment_home, container, false)
 
 
-        //recycler view
+//        recycler view
         imageList = arrayOf(
             R.drawable.icon_pill,
             R.drawable.icon_cal_filled,

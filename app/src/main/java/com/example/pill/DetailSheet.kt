@@ -1,8 +1,6 @@
 package com.example.pill
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class DetailSheet(private val dataClass: DataClass) : BottomSheetDialogFragment() {
+class DetailSheet(private val pill: DataClass) : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +27,6 @@ class DetailSheet(private val dataClass: DataClass) : BottomSheetDialogFragment(
         var DoseName: TextView = view.findViewById(R.id.sheetDoseName)
         var DoseImage: ImageView = view.findViewById(R.id.sheetDoseImage)
 
-        //getting data from dataclass parameter based on their position and setting it to their placeholder
-        DoseName.text = dataClass.dataTitle
-        DoseImage.setImageResource(dataClass.dataImage)
 
 
 

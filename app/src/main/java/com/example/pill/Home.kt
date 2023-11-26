@@ -16,6 +16,19 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        //get data from login
+        val intent = intent
+        val userId = intent.getIntExtra("id", 0)
+        val userEmail = intent.getStringExtra("email")
+        val userFName = intent.getStringExtra("fname")
+
+        //assign the data to the bundle for passing of data to home and profile fragments
+        //solution1
+//        val bundle = Bundle()
+//        bundle.putInt("userId", userId)
+//        bundle.putString("userEmail", userEmail)
+//        bundle.putString("userFullName", userFName)
+
         //nasa home.xml to eto yung mismong bottom nav natin
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.itemActiveIndicatorColor = getColorStateList(R.color.white)
@@ -25,11 +38,18 @@ class Home : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.bottom_home -> {
-                    replaceFragment(HomeFragment())
+                    val hfragment = HomeFragment()
+                    //pass data to home fragment
+//                    hfragment.arguments = bundle
+                    replaceFragment(hfragment)
                     true
                 }
                 R.id.bottom_profile -> {
-                    replaceFragment(ProfileFragment())
+                    val pfragment = ProfileFragment()
+                    //pass data to profile fragment
+//                    pfragment.arguments = bundle
+
+                    replaceFragment(pfragment)
                     true
                 }
                 else -> false
@@ -41,9 +61,18 @@ class Home : AppCompatActivity() {
         //fab onclicklistener to addDosage Activity
         val btnaddDosage = findViewById<FloatingActionButton>(R.id.fabAddDosage)
         btnaddDosage.setOnClickListener {
-            val addDoseIntent = Intent(this, addDose::class.java)
+            val addDoseIntent = Intent(this, AddDose::class.java)
             startActivity(addDoseIntent)
         }
+
+
+
+        //pass data to profilefragment
+//            val fragment = ProfileFragment()
+//            val bundle = Bundle()
+//            bundle.putString("fullName", userFName)
+//            fragment.arguments = bundle
+//            supportFragmentManager.beginTransaction().add(R.id.frame_container, fragment).commit()
 
     }
 

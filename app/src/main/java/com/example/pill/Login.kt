@@ -1,13 +1,17 @@
 package com.example.pill
 
+import android.R.attr.key
+import android.R.attr.value
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
+
 
 class Login : AppCompatActivity() {
 
@@ -49,12 +53,35 @@ class Login : AppCompatActivity() {
     }
 
     private fun loginDatabase(email: String, password: String){
-        val userExists = databaseHelper.readUser(email, password)
-        if(userExists){
-            //Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+        val user = databaseHelper.readUser(UserClass(0, email, password, ""))
+        if(user != null){
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             val homeActivity = Intent(this, Home::class.java)
+
+//            // Pass user details to Home activity solution 1
+//            homeActivity.putExtra("id", user.id)
+//            homeActivity.putExtra("email", user.email)
+//            homeActivity.putExtra("password", user.password)
+//            homeActivity.putExtra("fname", user.fname)
+//
+//            // Pass user details to Dose Confirm activity
+//            val DoseConfirm = Intent(this, DoseConfirm::class.java)
+//            DoseConfirm.putExtra("user_id", user.id)
+//
+//            //pangcheck nakukuha naman niya yung data from userclass
+//            //Log.i("Login", "Full Name: ${user.fname}")
+
+            //PERSEVERE: solution2 pass data throughout the whole app using shared preference
+            // Save userId to SharedPreferences
+            val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt("USER_ID", user.id)
+            editor.putString("USER_FNAME", user.fname)
+            editor.apply()
+
             startActivity(homeActivity)
             finish()
+
         } else {
             Toast.makeText(this, "Email and Password do not match, Please try again.", Toast.LENGTH_SHORT).show()
         }

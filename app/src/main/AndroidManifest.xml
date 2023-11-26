@@ -28,7 +28,7 @@
             android:name=".Notification"
             android:exported="false" />
         <activity
-            android:name=".addDose"
+            android:name=".AddDose"
             android:exported="false" />
         <activity
             android:name=".Home"

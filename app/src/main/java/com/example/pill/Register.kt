@@ -30,7 +30,7 @@ class Register : AppCompatActivity() {
             //validation if user input no value
             //if may laman lahat and match si password and confirm password pasok boom
             if(userFName.trim()!="" && userEmail.trim()!="" && userPassword.trim()!="") {
-                if (userPassword.trim()==userConfirmPassword.trim())
+                if (userPassword.trim() == userConfirmPassword.trim())
                     signupDatabase(userFName, userEmail, userPassword)
                 else
                     Toast.makeText(this, "Try Again! Password and Confirm Password do not match", Toast.LENGTH_LONG).show()
@@ -47,7 +47,7 @@ class Register : AppCompatActivity() {
     }
 
     private fun signupDatabase(fname: String, email: String, password: String){
-        val insertedRowId = databaseHelper.insertUser(fname, email, password)
+        val insertedRowId = databaseHelper.insertUser(UserClass(0, email, password, fname))
         if(insertedRowId != -1L){
             Toast.makeText(this, "Create an Account Successful", Toast.LENGTH_SHORT).show()
             val loginActivity = Intent(this, Login::class.java)

@@ -1,19 +1,25 @@
 package com.example.pill
 
+import android.R.attr.defaultValue
+import android.R.attr.key
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 
 
 class ProfileFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -33,9 +39,31 @@ class ProfileFragment : Fragment() {
         btnEditUser.setOnClickListener{
             val i = Intent(activity, Register::class.java)
             startActivity(i)
+
         }
+
+        //get data from home activity
+        //solution 1
+//        val result = arguments?.getString("userFullName")
+//        val tvFullName = view.findViewById<TextView>(R.id.tvFullName)
+//        tvFullName.text = result.orEmpty()
+
+        //pangcheck sa logcat
+//        Log.i("ProfileFragment", "Full Name: $result")
+
+        //solution 2 get data from login activity direct from shared pref
+        // Get SharedPreferences from the hosting activity
+        val sharedPreferences: SharedPreferences? =
+            activity?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+        // Retrieve data from SharedPreferences
+        val userId: Int? = sharedPreferences?.getInt("USER_ID", 0)
+        val userFname: String? = sharedPreferences?.getString("USER_FNAME", "")
+        val tvFullName = view.findViewById<TextView>(R.id.tvFullName)
+        tvFullName.text = "${userFname.orEmpty()} $userId"
 
         return view
     }
+
 
 }
