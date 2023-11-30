@@ -120,45 +120,37 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
     }
 
 
-    fun getPillsByUserId(context: Context, userId: Int): List<PillClass> {
-        val pills = ArrayList<PillClass>()
-        val dbHelper = DBHelper(context)
-        val db = dbHelper.readableDatabase
+    @SuppressLint("Range")
+    fun getAllPillsByUserId(userId: Int): List<PillClass> {
+        val pillsList = mutableListOf<PillClass>()
+        val selectQuery = "SELECT * FROM $TABLE_PILLS WHERE $COLUMN_USER_ID_FK = ?"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, arrayOf(userId.toString()))
 
-        val query = "SELECT * FROM $TABLE_PILLS WHERE $COLUMN_USER_ID_FK = ?"
-        val cursor: Cursor = db.rawQuery(query, arrayOf(userId.toString()))
-
-        while (cursor.moveToNext()) {
-            pills.add(cursor.toPill())
+        if (cursor.moveToFirst()) {
+            do {
+                val pill = PillClass(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_ID)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID_FK)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_TYPE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_PILL_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
+                    cursor.getString(cursor.getColumnIndex(COLUMN_MED_DATE))
+                )
+                pillsList.add(pill)
+            } while (cursor.moveToNext())
         }
 
         cursor.close()
-        db.close()
+//        db.close()
 
-        Log.d("PillFragment", "Number of pills for user $userId: ${pills.size}")
-
-        pills.forEach {
-            Log.d("PillFragment", "Pill: $it")
-        }
-        return pills
+        return pillsList
     }
 
-
-    @SuppressLint("Range")
-    private fun Cursor.toPill(): PillClass {
-        return PillClass(
-            getInt(getColumnIndex(COLUMN_PILL_ID)),
-            getInt(getColumnIndex(COLUMN_USER_ID_FK)),
-            getInt(getColumnIndex(COLUMN_PILL_TYPE)),
-            getString(getColumnIndex(COLUMN_PILL_NAME)),
-            getString(getColumnIndex(COLUMN_DOSAGE)),
-            getString(getColumnIndex(COLUMN_RECURRENCE)),
-            getString(getColumnIndex(COLUMN_END_DATE)),
-            getString(getColumnIndex(COLUMN_TIMES_OF_DAY)),
-            getInt(getColumnIndex(COLUMN_IS_TAKEN)) == 0,
-            getString(getColumnIndex(COLUMN_MED_DATE))
-        )
-    }
 //
 //    fun deletePill(pillId: Long): Int {
 //        return writableDatabase.use { db ->

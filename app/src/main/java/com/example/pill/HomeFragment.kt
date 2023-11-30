@@ -30,8 +30,10 @@ class HomeFragment : Fragment() {
 
         databaseHelper = DBHelper(requireContext())
 
+        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("USER_ID", 0)
         // Get all pills from the database
-        val pillsList = databaseHelper.getAllPills()
+        val pillsList = databaseHelper.getAllPillsByUserId(userId)
 
         // Set up RecyclerView
         val recyclerView = viewFragment.findViewById<RecyclerView>(R.id.recyclerView)

@@ -1,5 +1,6 @@
 package com.example.pill
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -26,8 +27,12 @@ class DoseHistory : AppCompatActivity() {
 
         databaseHelper = DBHelper(this)
 
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        // Retrieve data from SharedPreferences
+        val userId = sharedPreferences.getInt("USER_ID", 0)
+
         // Get all pills from the database
-        val pillsList = databaseHelper.getAllPills()
+        val pillsList = databaseHelper.getAllPillsByUserId(userId)
 
         // Set up RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.historyRecycler)
