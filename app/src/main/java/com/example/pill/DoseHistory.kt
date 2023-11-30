@@ -67,29 +67,29 @@ class DoseHistory : AppCompatActivity() {
 
 
         dataList = arrayListOf<DataClass>()
-        getData()
+//        getData()
     }
 
 
     //recycler view
-    private fun getData(){
-        for (i in imageList.indices){
-            val dataClass = DataClass(imageList[i], titleList[i])
-            dataList.add(dataClass)
-        }
-
-        //onitem click listener ni recycler view
-        val adapter = AdapterClass(dataList)
-        recyclerView.adapter = adapter
-        adapter.setOnItemClickListener(object : AdapterClass.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                //dito pinapasa yung data from recyclerview to detail sheet dahil sa datalist parameter
-                val detailModal = DetailSheet(dataList[position])
-                detailModal.show(supportFragmentManager, "detailModalSheet")
-            }
-        })
-
-
-    }
+//    private fun getData(){
+//        for (i in imageList.indices){
+//            val dataClass = DataClass(imageList[i], titleList[i])
+//            dataList.add(dataClass)
+//        }
+//
+//        //onitem click listener ni recycler view
+//        val adapter = AdapterClass(dataList)
+//        recyclerView.adapter = adapter
+//        adapter.setOnItemClickListener(object : AdapterClass.onItemClickListener{
+//            override fun onItemClick(position: Int) {
+//                //dito pinapasa yung data from recyclerview to detail sheet dahil sa datalist parameter
+//                val detailModal = DetailSheet(dataList[position])
+//                detailModal.show(supportFragmentManager, "detailModalSheet")
+//            }
+//        })
+//
+//
+//    }
 
 }

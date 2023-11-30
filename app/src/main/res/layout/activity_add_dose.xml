@@ -249,7 +249,9 @@
                 android:hint="November 23, 2023"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date" />
+                android:inputType="date"
+                android:drawableEnd="@drawable/icon_cal_outline"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

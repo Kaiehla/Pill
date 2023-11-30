@@ -17,7 +17,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/ivPillTypeImage"
             android:layout_width="69dp"
             android:layout_height="65dp"
             android:layout_centerVertical="true"
@@ -30,7 +30,7 @@
             android:src="@drawable/icon_pill" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/itvPillName"
             style="@style/pop.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/subtitle"
+            android:id="@+id/itvPillDetail"
             style="@style/pop.regular"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/itvTime"
             style="@style/pop.bold"
             android:layout_width="135dp"
             android:layout_height="wrap_content"

@@ -61,7 +61,7 @@ class Home : AppCompatActivity() {
         //fab onclicklistener to addDosage Activity
         val btnaddDosage = findViewById<FloatingActionButton>(R.id.fabAddDosage)
         btnaddDosage.setOnClickListener {
-            val addDoseIntent = Intent(this, addDose::class.java)
+            val addDoseIntent = Intent(this, AddDose::class.java)
             startActivity(addDoseIntent)
         }
 

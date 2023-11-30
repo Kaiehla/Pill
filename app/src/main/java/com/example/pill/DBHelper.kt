@@ -6,6 +6,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import kotlinx.coroutines.handleCoroutineException
 
 class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -31,7 +33,7 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         private const val COLUMN_END_DATE = "EndDate"
         private const val COLUMN_TIMES_OF_DAY = "TimesofDay"
         private const val COLUMN_IS_TAKEN = "IsTaken"
-        private const val COLUMN_MED_DATE = "Med Date"
+        private const val COLUMN_MED_DATE = "MedDate"
 
     }
 
@@ -116,35 +118,47 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         val db = writableDatabase
         return db.insert(TABLE_PILLS, null, values)
     }
-//
-//    fun getPillsByUserId(userId: Int): List<PillClass> {
-//        val pills = mutableListOf<PillClass>()
-//        readableDatabase.use { db ->
-//            val selection = "$COLUMN_USER_ID_FK = ?"
-//            val selectionArgs = arrayOf(userId.toString())
-//            db.query(TABLE_PILLS, null, selection, selectionArgs, null, null, null).use { cursor ->
-//                while (cursor.moveToNext()) {
-//                    pills.add(cursor.toPill())
-//                }
-//            }
-//        }
-//        return pills
-//    }
-//
-//    private fun Cursor.toPill(): PillClass {
-//        return PillClass(
-//            getInt(getColumnIndexOrThrow(COLUMN_PILL_ID)),
-//            getInt(getColumnIndexOrThrow(COLUMN_USER_ID_FK)),
-//            getInt(getColumnIndexOrThrow(COLUMN_PILL_TYPE)),
-//            getString(getColumnIndexOrThrow(COLUMN_PILL_NAME)),
-//            getString(getColumnIndexOrThrow(COLUMN_DOSAGE)),
-//            getString(getColumnIndexOrThrow(COLUMN_RECURRENCE)),
-//            getString(getColumnIndexOrThrow(COLUMN_END_DATE)),
-//            getString(getColumnIndexOrThrow(COLUMN_TIMES_OF_DAY)),
-//            getInt(getColumnIndexOrThrow(COLUMN_IS_TAKEN)) == 1,
-//            getString(getColumnIndexOrThrow(COLUMN_MED_DATE))
-//        )
-//    }
+
+
+    fun getPillsByUserId(context: Context, userId: Int): List<PillClass> {
+        val pills = ArrayList<PillClass>()
+        val dbHelper = DBHelper(context)
+        val db = dbHelper.readableDatabase
+
+        val query = "SELECT * FROM $TABLE_PILLS WHERE $COLUMN_USER_ID_FK = ?"
+        val cursor: Cursor = db.rawQuery(query, arrayOf(userId.toString()))
+
+        while (cursor.moveToNext()) {
+            pills.add(cursor.toPill())
+        }
+
+        cursor.close()
+        db.close()
+
+        Log.d("PillFragment", "Number of pills for user $userId: ${pills.size}")
+
+        pills.forEach {
+            Log.d("PillFragment", "Pill: $it")
+        }
+        return pills
+    }
+
+
+    @SuppressLint("Range")
+    private fun Cursor.toPill(): PillClass {
+        return PillClass(
+            getInt(getColumnIndex(COLUMN_PILL_ID)),
+            getInt(getColumnIndex(COLUMN_USER_ID_FK)),
+            getInt(getColumnIndex(COLUMN_PILL_TYPE)),
+            getString(getColumnIndex(COLUMN_PILL_NAME)),
+            getString(getColumnIndex(COLUMN_DOSAGE)),
+            getString(getColumnIndex(COLUMN_RECURRENCE)),
+            getString(getColumnIndex(COLUMN_END_DATE)),
+            getString(getColumnIndex(COLUMN_TIMES_OF_DAY)),
+            getInt(getColumnIndex(COLUMN_IS_TAKEN)) == 0,
+            getString(getColumnIndex(COLUMN_MED_DATE))
+        )
+    }
 //
 //    fun deletePill(pillId: Long): Int {
 //        return writableDatabase.use { db ->

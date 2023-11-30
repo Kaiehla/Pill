@@ -1,5 +1,6 @@
 package com.example.pill
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterClass(private val dataList:ArrayList<DataClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
+class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
 
 //    var onItemClick: ((DataClass) -> Unit)? = null
 
@@ -21,8 +22,10 @@ class AdapterClass(private val dataList:ArrayList<DataClass>): RecyclerView.Adap
     }
 
     class ViewHolderClass(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView) {
-        val rvImage: ImageView = itemView.findViewById(R.id.image)
-        val rvTitle: TextView = itemView.findViewById(R.id.title)
+        val rvPillTypeImage: ImageView = itemView.findViewById(R.id.ivPillTypeImage)
+        val rvPillName: TextView = itemView.findViewById(R.id.itvPillName)
+        val rvPillDetail: TextView = itemView.findViewById(R.id.itvPillDetail)
+        val rvTime: TextView = itemView.findViewById(R.id.itvTime)
 
         init {
             itemView.setOnClickListener {
@@ -39,14 +42,25 @@ class AdapterClass(private val dataList:ArrayList<DataClass>): RecyclerView.Adap
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return pills.size
 
     }
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
-        val currentItem = dataList[position]
-        holder.rvImage.setImageResource(currentItem.dataImage)
-        holder.rvTitle.text = currentItem.dataTitle
+        val currentPill = pills[position]
+        //laman ng item view ng recycler view
+        val imagePillType = when (currentPill.pillType){
+            1 -> R.drawable.icon_pill
+            2 -> R.drawable.icon_capsule
+            3 -> R.drawable.icon_bottle_trans
+            4 -> R.drawable.icon_injection
+            else -> R.drawable.icon_pill
+        }
+        holder.rvPillTypeImage.setImageResource(imagePillType)
+        holder.rvPillName.text = currentPill.pillName
+        holder.rvPillDetail.text = "${currentPill.dosage} pill, ${currentPill.recur}"
+        holder.rvTime.text = currentPill.timesOfDay
+
 
         //pangclick sa item sa loob ng recyclerview
 //        holder.itemView.setOnClickListener{

@@ -14,7 +14,7 @@ import com.google.android.material.radiobutton.MaterialRadioButton
 import java.text.SimpleDateFormat
 import java.util.*
 
-class addDose : AppCompatActivity() {
+class AddDose : AppCompatActivity() {
 
     private lateinit var fabHome: FloatingActionButton
     private lateinit var rbRound: RadioButton
@@ -58,6 +58,14 @@ class addDose : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
+            // Retrieve data from input fields
+            val pillType = when {
+                rbRound.isChecked -> 1
+                rbCapsule.isChecked -> 2
+                rbBottle.isChecked -> 3
+                rbInjection.isChecked -> 4
+                else -> 1
+            }
 
             val pillName = etPillName.text.toString()
             val dosage = etDosage.text.toString()
@@ -94,16 +102,17 @@ class addDose : AppCompatActivity() {
             }
 
 
-            val epochTime = convertDateToEpoch(endDate)
+            val epochTimeEndDate = convertDateToEpoch(endDate)
+
 
 
             val intent = Intent(this, DoseConfirm::class.java).apply {
+                putExtra("PillType", pillType)
                 putExtra("PillName", pillName)
                 putExtra("Dosage", dosage)
                 putExtra("Recurrence", recurrence)
-                putExtra("EndDate", endDate)
+                putExtra("EndDate", epochTimeEndDate)
                 putExtra("TimesOfDay", timesOfDay.toString())
-                putExtra("EpochTime", epochTime)
             }
 
             startActivity(intent)
