@@ -67,7 +67,7 @@
                 android:layout_marginTop="30dp"/>
 
             <TextView
-                android:id="@+id/sheetDosage"
+                android:id="@+id/sheetDoseDetail"
                 style="@style/sub.white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:layout_marginBottom="30dp"/>
 
             <Button
-                android:id="@+id/btnEdit"
+                android:id="@+id/btnTake"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:backgroundTint="@color/PalePink"
@@ -178,7 +178,7 @@
 
 
                     <TextView
-                        android:id="@+id/sheetTimeDay"
+                        android:id="@+id/sheetTimesOfDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your medication is scheduled at Morning and Afternoon"
@@ -189,7 +189,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/btnDelete"
+                android:id="@+id/btnDeleteDose"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"

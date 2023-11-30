@@ -1,5 +1,6 @@
 package com.example.pill
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +13,18 @@ class MainActivity : AppCompatActivity() {
 
         //Splash screen
         Handler().postDelayed({
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
+            val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            // Retrieve data from SharedPreferences
+            val userId = sharedPreferences.getInt("USER_ID", 0)
+
+            //if user has already logged in before
+            if (userId == 0){
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            } else{
+                val intent = Intent(this, Home::class.java)
+                startActivity(intent)
+            }
         }, 2000)
     }
 }

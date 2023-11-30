@@ -197,7 +197,7 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         }
 
         cursor.close()
-        db.close()
+//        db.close()
 
         return pillsList
     }

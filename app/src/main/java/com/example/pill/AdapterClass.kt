@@ -21,26 +21,24 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         mListener = listener as onItemClickListener
     }
 
-    //class ViewHolderClass(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView) {
-        class ViewHolderClass(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ViewHolderClass(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView) {
         val rvPillTypeImage: ImageView = itemView.findViewById(R.id.ivPillTypeImage)
         val rvPillName: TextView = itemView.findViewById(R.id.itvPillName)
         val rvPillDetail: TextView = itemView.findViewById(R.id.itvPillDetail)
         val rvTime: TextView = itemView.findViewById(R.id.itvTime)
 
-//        init {
-//            itemView.setOnClickListener {
-//                listener.onItemClick(adapterPosition)
-//            }
-//
-//        }
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+
+        }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-//        return ViewHolderClass(itemView, mListener)
-        return ViewHolderClass(itemView)
+        return ViewHolderClass(itemView, mListener)
     }
 
     override fun getItemCount(): Int {

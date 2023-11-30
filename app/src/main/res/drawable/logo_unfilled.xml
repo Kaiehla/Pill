@@ -5,23 +5,23 @@
     android:viewportHeight="270">
   <path
       android:pathData="M205.98,137.17L144.57,56.78A62.63,62.63 97.62,0 0,56.78 45.03L56.78,45.03A62.63,62.63 97.62,0 0,45.03 132.82L106.44,213.2A62.63,62.63 97.62,0 0,194.23 224.96L194.23,224.95A62.63,62.63 97.62,0 0,205.98 137.17z"
-      android:strokeWidth="10"
+      android:strokeWidth="13"
       android:fillColor="@color/PalePink"
       android:strokeColor="#0021AC"/>
   <path
       android:pathData="M107.03,137.17L168.44,56.78A62.63,62.63 82.38,0 1,256.23 45.03L256.23,45.03A62.63,62.63 82.38,0 1,267.98 132.82L206.57,213.2A62.63,62.63 82.38,0 1,118.78 224.96L118.78,224.95A62.63,62.63 82.38,0 1,107.03 137.17z"
-      android:strokeWidth="10"
+      android:strokeWidth="13"
       android:fillColor="@color/PalePink"
       android:strokeColor="#0021AC"/>
   <path
       android:pathData="M144.6,99.51C141.53,97.17 140.94,92.77 143.29,89.7L168.44,56.78C189.44,29.29 228.74,24.03 256.23,45.03C283.71,66.03 288.98,105.33 267.98,132.82L242.83,165.74C240.48,168.81 236.09,169.4 233.01,167.05L144.6,99.51Z"
-      android:strokeWidth="10"
+      android:strokeWidth="13"
       android:fillColor="@color/PalePink"
       android:strokeColor="#0021AC"/>
   <path
       android:pathData="M126.29,145.78C119.29,156.28 111.79,171.28 119.29,193.28"
       android:strokeLineJoin="round"
-      android:strokeWidth="10"
+      android:strokeWidth="13"
       android:fillColor="@color/PalePink"
       android:strokeColor="#0021AC"
       android:strokeLineCap="round"/>

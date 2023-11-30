@@ -11,12 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DoseHistory : AppCompatActivity() {
 
-    //recycler view
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var dataList: ArrayList<DataClass>
-    lateinit var imageList: Array<Int>
-    lateinit var titleList: Array<String>
-    private lateinit var myAdapter: AdapterClass
+    private lateinit var databaseHelper: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,67 +24,25 @@ class DoseHistory : AppCompatActivity() {
             startActivity(i)
         }
 
-        //recycler view
-        imageList = arrayOf(
-            R.drawable.icon_pill,
-            R.drawable.icon_cal_filled,
-            R.drawable.icon_pill,
-            R.drawable.icon_pill,
-            R.drawable.icon_uncheck,
-            R.drawable.icon_home_filled,
-            R.drawable.icon_pill,
-            R.drawable.icon_uncheck,
-            R.drawable.icon_pill,
-            R.drawable.icon_home_filled,
-            R.drawable.icon_uncheck,
-            R.drawable.icon_pill
-        )
+        databaseHelper = DBHelper(this)
 
-        titleList = arrayOf(
-            "Trixera",
-            "Avene",
-            "Hyabak",
-            "Biogesic",
-            "Allerta",
-            "Zykast",
-            "Montelukast",
-            "Vitamin A",
-            "Vitamin B",
-            "Vitamin C",
-            "Vitamin D",
-            "Vitamin E",
-        )
+        // Get all pills from the database
+        val pillsList = databaseHelper.getAllPills()
 
-
-        recyclerView = findViewById(R.id.historyRecycler)
+        // Set up RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.historyRecycler)
+        val adapter = AdapterClass(pillsList) // Create your adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
 
-
-        dataList = arrayListOf<DataClass>()
-//        getData()
+        //on itemclick magpapakita bottom modal sheet for dose details
+        adapter.setOnItemClickListener(object : AdapterClass.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                //dito pinapasa yung data from recyclerview to detail sheet dahil sa datalist parameter
+                val detailModal = DetailSheet(pillsList[position])
+                detailModal.show(supportFragmentManager, "detailModalSheet")
+            }
+        })
     }
-
-
-    //recycler view
-//    private fun getData(){
-//        for (i in imageList.indices){
-//            val dataClass = DataClass(imageList[i], titleList[i])
-//            dataList.add(dataClass)
-//        }
-//
-//        //onitem click listener ni recycler view
-//        val adapter = AdapterClass(dataList)
-//        recyclerView.adapter = adapter
-//        adapter.setOnItemClickListener(object : AdapterClass.onItemClickListener{
-//            override fun onItemClick(position: Int) {
-//                //dito pinapasa yung data from recyclerview to detail sheet dahil sa datalist parameter
-//                val detailModal = DetailSheet(dataList[position])
-//                detailModal.show(supportFragmentManager, "detailModalSheet")
-//            }
-//        })
-//
-//
-//    }
 
 }

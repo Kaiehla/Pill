@@ -42,6 +42,21 @@ class ProfileFragment : Fragment() {
 
         }
 
+        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
+        btnLogout.setOnClickListener{
+            // Assuming "myPreferences" is the name of your SharedPreferences file
+            val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            // Clear all the data in the SharedPreferences file
+            editor.clear()
+            editor.apply()
+
+            //back to Login
+            val backToLogin = Intent(activity, Login::class.java)
+            startActivity(backToLogin)
+        }
+
         //get data from home activity
         //solution 1
 //        val result = arguments?.getString("userFullName")
@@ -60,7 +75,7 @@ class ProfileFragment : Fragment() {
         val userId: Int? = sharedPreferences?.getInt("USER_ID", 0)
         val userFname: String? = sharedPreferences?.getString("USER_FNAME", "")
         val tvFullName = view.findViewById<TextView>(R.id.tvFullName)
-        tvFullName.text = "${userFname.orEmpty()} $userId"
+        tvFullName.text = "${userFname.orEmpty()}"
 
         return view
     }

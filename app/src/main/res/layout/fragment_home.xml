@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="69dp"
-                android:src="@drawable/icon_pill"
+                android:src="@drawable/logo_unfilled"
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
@@ -58,9 +58,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="70dp"/>
-
-
+                android:paddingBottom="70dp" />
 
 
         </LinearLayout>
