@@ -37,20 +37,27 @@ class HomeFragment : Fragment() {
 
         databaseHelper = DBHelper(requireContext())
 
-        recyclerView = viewFragment.findViewById(R.id.recyclerView)
+        // Get all pills from the database
+        val pillsList = databaseHelper.getAllPills()
 
-        // Retrieve user ID from SharedPreferences
-        val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getInt("USER_ID", 0)
+        // Set up RecyclerView
+        val recyclerView = viewFragment.findViewById<RecyclerView>(R.id.recyclerView)
+        val adapter = AdapterClass(pillsList) // Create your adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
-
-        val pills = databaseHelper.getPillsByUserId(requireContext(),userId)
-        val pillsAdapter = AdapterClass(pills)
-        recyclerView.adapter = pillsAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
-
-        Log.d("PillFragment", "Number of items: ${pillsAdapter.itemCount}")
+//        // Retrieve user ID from SharedPreferences
+//        val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+//        val userId = sharedPreferences.getInt("USER_ID", 0)
+//
+//
+//        val pills = databaseHelper.getPillsByUserId(requireContext(),userId)
+//        val pillsAdapter = AdapterClass(pills)
+//        recyclerView.adapter = pillsAdapter
+//        recyclerView.layoutManager = LinearLayoutManager(context)
+//        recyclerView.setHasFixedSize(true)
+//
+//        Log.d("PillFragment", "Number of items: ${pillsAdapter.itemCount}")
 
 
 //        dataList = arrayListOf<DataClass>()

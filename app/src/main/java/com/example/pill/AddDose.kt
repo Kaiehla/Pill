@@ -111,7 +111,7 @@ class AddDose : AppCompatActivity() {
                 putExtra("PillName", pillName)
                 putExtra("Dosage", dosage)
                 putExtra("Recurrence", recurrence)
-                putExtra("EndDate", epochTimeEndDate)
+                putExtra("EndDate", epochTimeEndDate.toString())
                 putExtra("TimesOfDay", timesOfDay.toString())
             }
 
