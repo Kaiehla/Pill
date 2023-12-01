@@ -66,7 +66,7 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         holder.rvPillTypeImage.setImageResource(imagePillType)
         holder.rvPillName.text = currentPill.pillName
         holder.rvPillDetail.text = "${currentPill.dosage} pill, ${currentPill.recur}"
-        holder.rvTime.text = currentPill.timesOfDay.toString()
+        holder.rvTime.text = currentPill.timesOfDay.toString().replace("[", "").replace("]", "")
 
         // Set ImageButton image based on the pill status
         val imageResource = if (currentPill.isTaken) {

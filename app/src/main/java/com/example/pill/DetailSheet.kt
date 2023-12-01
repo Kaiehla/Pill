@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -50,6 +51,7 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         val btnTake : Button = view.findViewById(R.id.btnTake)
         val btnEdit : Button = view.findViewById(R.id.btnEditDose)
         val btnDelete : Button = view.findViewById(R.id.btnDeleteDose)
+        val btnExitDetail : ImageButton = view.findViewById(R.id.btnExitDetail)
 
         if (!pill.isTaken){
             btnTake.text = "Taken"
@@ -70,11 +72,11 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         }
         DoseImage.setImageResource(imagePillType)
 
-        DoseTime.text = pill.recur
+        DoseTime.text = pill.timesOfDay.toString().replace("[", "").replace("]", "")
 
         val epochToNormalDate = convertEpochToDate(pill.endDate)
         DoseEndDate.text = "Your medication will end until ${epochToNormalDate}"
-        DoseTimesOfDay.text = "Your medication is scheduled at ${pill.timesOfDay}"
+        DoseTimesOfDay.text = "Your medication is scheduled at ${pill.timesOfDay.toString().replace("[", "").replace("]", "")} on ${convertEpochToDateWithAMPM(pill.pillDate)}"
 
         //buttons
         btnTake.setOnClickListener {
@@ -106,6 +108,14 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
             }
         }
 
+        btnExitDetail.setOnClickListener {
+            dismiss()
+        }
+
+        btnEdit.setOnClickListener {
+
+        }
+
         return view
     }
 
@@ -131,11 +141,20 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
-
-
     }
 
     fun convertEpochToDate(epoch: Long, pattern: String = "yyyy-MM-dd"): String {
+        try {
+            val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+            val date = Date(epoch)
+            return sdf.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return "Invalid Date"
+        }
+    }
+
+    fun convertEpochToDateWithAMPM(epoch: Long, pattern: String = "yyyy-MM-dd hh:mm a"): String {
         try {
             val sdf = SimpleDateFormat(pattern, Locale.getDefault())
             val date = Date(epoch)
