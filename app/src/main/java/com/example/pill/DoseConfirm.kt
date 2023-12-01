@@ -9,14 +9,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Date
 
 class DoseConfirm : AppCompatActivity() {
 
     private lateinit var databaseHelper: DBHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dose_confirm)
@@ -24,6 +22,11 @@ class DoseConfirm : AppCompatActivity() {
         databaseHelper = DBHelper(this)
 
         val btnConfirm = findViewById<Button>(R.id.btnConfirm)
+        btnConfirm.setOnClickListener {
+            val HomeActivity = Intent(this, Home::class.java)
+            startActivity(HomeActivity)
+        }
+
         val doseDetail = findViewById<TextView>(R.id.doseDetail)
 
         val intent = intent
@@ -36,29 +39,20 @@ class DoseConfirm : AppCompatActivity() {
         val timesOfDay = intent.getStringExtra("TimesOfDay")
         val date = "DateNow Epoch"
 
-        // Retrieve data from shared prefs to get the userid for foreign key
+        //retrieve data from shared prefs to get the userid for foreign key
         // Get SharedPreferences from the hosting activity
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         // Retrieve data from SharedPreferences
         val userId = sharedPreferences.getInt("USER_ID", 0)
 
+
         // Display the information
-        val doseMessage =
-            "You're now set to take $dosage dose of $pillName,\n$recurrence until $endDate. Every $timesOfDay"
+        val doseMessage = "You're now set to take $dosage dose of $pillName,\n$recurrence until $endDate. Every $timesOfDay"
         doseDetail.text = doseMessage
 
         btnConfirm.setOnClickListener {
-            // insert to the database
-            insertPillDatabase(
-                userId,
-                pillType,
-                pillName!!,
-                dosage!!,
-                recurrence!!,
-                endDate!!,
-                timesOfDay!!,
-                date
-            )
+            //insert to the database
+            insertPillDatabase(userId, pillType, pillName!!, dosage!!, recurrence!!, endDate!!, timesOfDay!!, date)
 
             finish()
         }
@@ -73,63 +67,20 @@ class DoseConfirm : AppCompatActivity() {
         endDate: String,
         timesOfDay: String,
         pillDate: String
-    ) {
-        // Parse recurrence to get the number of days between doses
-        val recurrenceDays = when (recurrence){
-            "Daily" -> 7
-            "Weekly" -> 1
-            else -> 7
+    ){
+        val insertedRowId = databaseHelper.insertPill(PillClass(0, userId, pillType, pillName, dosage, recurrence, endDate, timesOfDay, isTaken = false, pillDate))
+
+        Log.i("Inserted Row", "${(PillClass(0, userId, pillType, pillName, dosage, recurrence, endDate, timesOfDay, isTaken = false, pillDate))
+        }")
+        if(insertedRowId != -1L){
+            Toast.makeText(this, "Pill Created Successful", Toast.LENGTH_SHORT).show()
+            val HomeActivity = Intent(this, Home::class.java)
+            startActivity(HomeActivity)
+            finish()
+        } else{
+            //validation if register process failed
+            Toast.makeText(this, "Pill Failed, Please try again", Toast.LENGTH_SHORT).show()
         }
-
-        // Parse endDate to Date or use appropriate logic for your case
-        val endDateDate = parseEndDateToDate(endDate)
-
-        // Iterate over the recurrence period and insert pills
-        var currentDate = Date() // Replace this with the actual start date
-        while (currentDate <= endDateDate) {
-            val insertedRowId = databaseHelper.insertPill(
-                PillClass(
-                    0,
-                    userId,
-                    pillType,
-                    pillName,
-                    dosage,
-                    recurrence,
-                    endDate,
-                    timesOfDay,
-                    isTaken = false,
-                    pillDate
-                )
-            )
-
-            Log.i(
-                "Inserted Row",
-                "${(PillClass(0, userId, pillType, pillName, dosage, recurrence, endDate, timesOfDay, isTaken = false, pillDate))}"
-            )
-
-            // Move to the next occurrence date
-            currentDate = addDays(currentDate, recurrenceDays)
-        }
-
-        Toast.makeText(this, "Pills Created Successfully", Toast.LENGTH_SHORT).show()
-
-        // Navigate to HomeActivity after inserting all pills
-        val homeActivity = Intent(this, Home::class.java)
-        startActivity(homeActivity)
-
-        finish()
     }
 
-    private fun parseEndDateToDate(endDate: String): Date {
-        // Use SimpleDateFormat to parse the date string
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        return dateFormat.parse(endDate)!!
-    }
-
-    private fun addDays(date: Date, days: Int): Date {
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        calendar.add(Calendar.DAY_OF_YEAR, days)
-        return calendar.time
-    }
 }

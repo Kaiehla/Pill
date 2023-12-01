@@ -107,7 +107,6 @@ class AddDose : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
             val epochTimeEndDate = convertDateToEpoch(endDate)
 
 
@@ -117,14 +116,25 @@ class AddDose : AppCompatActivity() {
                 putExtra("PillName", pillName)
                 putExtra("Dosage", dosage)
                 putExtra("Recurrence", recurrence)
-                putExtra("EndDate", epochTimeEndDate.toString())
+                putExtra("EndDate", endDate)
                 putExtra("TimesOfDay", timesOfDay.toString())
+                putExtra("EpochEndDate", epochTimeEndDate)
             }
 
             startActivity(intent)
         }
 
 
+    }
+    private fun convertDateToEpoch(dateString: String): Long {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        try {
+            val date = sdf.parse(dateString)
+            return date?.time ?: 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return 0
     }
 
     private fun showDatePickerDialog() {
@@ -141,16 +151,7 @@ class AddDose : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun convertDateToEpoch(dateString: String): Long {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        try {
-            val date = sdf.parse(dateString)
-            return date?.time ?: 0
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return 0
-    }
+
 }
 
 
