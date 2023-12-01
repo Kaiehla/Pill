@@ -136,10 +136,10 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                     cursor.getString(cursor.getColumnIndex(COLUMN_PILL_NAME)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)),
+                    cursor.getLong(cursor.getColumnIndex(COLUMN_END_DATE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)),
                     cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
-                    cursor.getString(cursor.getColumnIndex(COLUMN_MED_DATE))
+                    cursor.getLong(cursor.getColumnIndex(COLUMN_MED_DATE))
                 )
                 pillsList.add(pill)
             } while (cursor.moveToNext())

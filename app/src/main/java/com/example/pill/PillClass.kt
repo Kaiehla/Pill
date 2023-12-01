@@ -8,10 +8,10 @@ data class PillClass(
     val pillName: String,
     val dosage: String,
     val recur: String,
-    val endDate: String, //Epoch datetime when user will end the medicine intake
+    val endDate: Long, //Epoch datetime when user will end the medicine intake
     val timesOfDay: String,
     var isTaken: Boolean,
-    val pillDate: String, //Epoch datetime when the user must take the medicine
+    val pillDate: Long, //Epoch datetime when the user must take the medicine
 )
 
 

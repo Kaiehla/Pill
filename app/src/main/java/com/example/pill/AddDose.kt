@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.radiobutton.MaterialRadioButton
 import java.text.SimpleDateFormat
@@ -64,7 +65,7 @@ class AddDose : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
-            // Retrieve data from input fields
+
             val pillType = when {
                 rbRound.isChecked -> 1
                 rbCapsule.isChecked -> 2
@@ -74,14 +75,58 @@ class AddDose : AppCompatActivity() {
             }
 
             val pillName = etPillName.text.toString()
-            val dosage = etDosage.text.toString()
+            val dosage = etDosage.text.toString().toInt()
+
+            // Check if the number of times of day matches the dosage
+            val timesOfDayCount = listOf(
+                chipMorning.isChecked,
+                chipAfternoon.isChecked,
+                chipEvening.isChecked,
+                chipDawn.isChecked
+            ).count { it }
+
+            if (timesOfDayCount < 1 || timesOfDayCount > dosage){
+                Toast.makeText(
+                    this,
+                    "You're selecting $timesOfDayCount time(s) of day, which is not equal to the dosage of $dosage",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
             val recurrence = if (rbDaily.isChecked) "Daily" else "Weekly"
             val endDate = etEndDate.text.toString()
             val timesOfDay = StringBuilder()
 
-            if (pillName.isEmpty() || dosage.isEmpty()) {
-                Toast.makeText(this, "Pill name and dosage cannot be empty", Toast.LENGTH_SHORT).show()
+            if (!(chipMorning.isChecked || chipAfternoon.isChecked || chipEvening.isChecked || chipDawn.isChecked)) {
+                Toast.makeText(
+                    this,
+                    "Please select at least one time of day",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
+            }
+
+            val chipGroup = findViewById<ChipGroup>(R.id.cgTimesOfDay)
+
+            chipGroup.setOnCheckedChangeListener { group, checkedId ->
+                // 'checkedId' is the ID of the chip that was checked, or -1 if no chip is checked
+
+                // You can perform actions based on the checked chip, if needed
+                when (checkedId) {
+                    R.id.chipMorning -> {
+
+                    }
+                    R.id.chipAfternoon -> {
+
+                    }
+                    R.id.chipEvening -> {
+
+                    }
+                    R.id.chipDawn -> {
+
+                    }
+                }
             }
 
             if (chipMorning.isChecked) {
