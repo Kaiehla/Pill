@@ -1,5 +1,6 @@
 package com.example.pill
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -12,10 +13,12 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
+    private lateinit var databaseHelper: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,9 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail_sheet, container, false)
+
+        databaseHelper = DBHelper(requireContext())
+
         //getting ids from detailsheet xml
         val DoseName: TextView = view.findViewById(R.id.sheetDoseName)
         val DoseDetail: TextView = view.findViewById(R.id.sheetDoseDetail)
@@ -63,6 +69,23 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         DoseTime.text = pill.recur
         DoseEndDate.text = "Your medication will end until ${pill.endDate}"
         DoseTimesOfDay.text = "Your medication is scheduled at ${pill.timesOfDay}"
+
+        //buttons
+        btnDelete.setOnClickListener{
+            // Call the deletePill function with the pillId
+            val deletedRows = databaseHelper.deletePill(pill.id)
+
+            // Check if the deletion was successful
+            if (deletedRows > 0) {
+                Toast.makeText(requireContext(), "Deleted Pill Successful", Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity, Home::class.java)
+                startActivity(intent)
+            } else {
+                // Deletion was not successful, show an error message or take appropriate action
+                // For example, display a toast message
+                Toast.makeText(requireContext(), "Delete operation failed", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return view
     }

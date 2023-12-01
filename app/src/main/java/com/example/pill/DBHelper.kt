@@ -152,15 +152,15 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
     }
 
 //
-//    fun deletePill(pillId: Long): Int {
-//        return writableDatabase.use { db ->
-//            db.delete(
-//                TABLE_PILLS,
-//                "$COLUMN_PILL_ID = ?",
-//                arrayOf(pillId.toString())
-//            )
-//        }
-//    }
+    fun deletePill(pillId: Int): Int {
+        return writableDatabase.use { db ->
+            db.delete(
+                TABLE_PILLS,
+                "$COLUMN_PILL_ID = ?",
+                arrayOf(pillId.toString())
+            )
+        }
+    }
 
     // Function to get all pills from the database
 //    @SuppressLint("Range")
