@@ -47,6 +47,21 @@ class DoseHistory : AppCompatActivity() {
                 val detailModal = DetailSheet(pillsList[position])
                 detailModal.show(supportFragmentManager, "detailModalSheet")
             }
+
+            override fun onImageButtonClick(position: Int) {
+                val selectedPill = pillsList[position]
+
+                // Toggle the status (1 to 0 or 0 to 1)
+                val newStatus = !selectedPill.isTaken
+
+                // Update the status in the database
+                databaseHelper.updatePillStatus(selectedPill.id, newStatus)
+
+                // Refresh the RecyclerView
+                pillsList[position].isTaken = newStatus
+                // Notify the adapter that the data has changed
+                adapter.notifyItemChanged(position)
+            }
         })
     }
 

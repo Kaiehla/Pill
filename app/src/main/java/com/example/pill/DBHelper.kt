@@ -163,35 +163,46 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
 //    }
 
     // Function to get all pills from the database
-    @SuppressLint("Range")
-    fun getAllPills(): List<PillClass> {
-        val pillsList = mutableListOf<PillClass>()
-        val selectQuery = "SELECT * FROM $TABLE_PILLS"
-        val db = this.readableDatabase
-        val cursor = db.rawQuery(selectQuery, null)
+//    @SuppressLint("Range")
+//    fun getAllPills(): List<PillClass> {
+//        val pillsList = mutableListOf<PillClass>()
+//        val selectQuery = "SELECT * FROM $TABLE_PILLS"
+//        val db = this.readableDatabase
+//        val cursor = db.rawQuery(selectQuery, null)
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                val pill = PillClass(
+//                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_ID)),
+//                    cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID_FK)),
+//                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_TYPE)),
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_PILL_NAME)),
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)),
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)),
+//                    cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
+//                    cursor.getString(cursor.getColumnIndex(COLUMN_MED_DATE))
+//                )
+//                pillsList.add(pill)
+//            } while (cursor.moveToNext())
+//        }
+//
+//        cursor.close()
+////        db.close()
+//
+//        return pillsList
+//    }
 
-        if (cursor.moveToFirst()) {
-            do {
-                val pill = PillClass(
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_ID)),
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID_FK)),
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_TYPE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_PILL_NAME)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)),
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
-                    cursor.getString(cursor.getColumnIndex(COLUMN_MED_DATE))
-                )
-                pillsList.add(pill)
-            } while (cursor.moveToNext())
-        }
+    fun updatePillStatus(pillId: Int, newStatus: Boolean) {
+        val db = this.writableDatabase
+        val values = ContentValues()
 
-        cursor.close()
-//        db.close()
+        values.put(COLUMN_IS_TAKEN, if (newStatus) 0 else 1)
 
-        return pillsList
+        db.update(TABLE_PILLS, values, "$COLUMN_PILL_ID = ?", arrayOf(pillId.toString()))
+
+        db.close()
     }
 
 

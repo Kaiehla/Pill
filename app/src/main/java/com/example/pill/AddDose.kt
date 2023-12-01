@@ -52,6 +52,12 @@ class AddDose : AppCompatActivity() {
         chipDawn = findViewById(R.id.chipDawn)
         btnNext = findViewById(R.id.btnNext)
 
+        fabHome.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+
+        }
+
         // Date picker dialog for etEndDate
         etEndDate.setOnClickListener {
             showDatePickerDialog()
@@ -117,6 +123,8 @@ class AddDose : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+
     }
 
     private fun showDatePickerDialog() {

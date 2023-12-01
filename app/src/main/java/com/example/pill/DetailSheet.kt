@@ -1,5 +1,8 @@
 package com.example.pill
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +40,12 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         val btnTake : Button = view.findViewById(R.id.btnTake)
         val btnEdit : Button = view.findViewById(R.id.btnEditDose)
         val btnDelete : Button = view.findViewById(R.id.btnDeleteDose)
+
+        if (!pill.isTaken){
+            btnTake.text = "Taken"
+            btnTake.isEnabled = false
+            btnTake.setBackgroundColor(resources.getColor(R.color.Gray))
+        }
 
         //change the values based on pill class
         DoseName.text = pill.pillName

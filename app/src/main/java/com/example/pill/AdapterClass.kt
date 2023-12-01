@@ -4,6 +4,7 @@ import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
     private lateinit var mListener: onItemClickListener
     interface onItemClickListener{
         fun onItemClick(position: Int)
+        fun onImageButtonClick(position: Int)
     }
 
     fun setOnItemClickListener(listener: Any){
@@ -26,10 +28,15 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         val rvPillName: TextView = itemView.findViewById(R.id.itvPillName)
         val rvPillDetail: TextView = itemView.findViewById(R.id.itvPillDetail)
         val rvTime: TextView = itemView.findViewById(R.id.itvTime)
+        val btnDonePill: ImageButton = itemView.findViewById(R.id.btnDonePill)
 
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(adapterPosition)
+            }
+
+            btnDonePill.setOnClickListener {
+                listener.onImageButtonClick(adapterPosition)
             }
 
         }
@@ -61,11 +68,13 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         holder.rvPillDetail.text = "${currentPill.dosage} pill, ${currentPill.recur}"
         holder.rvTime.text = currentPill.timesOfDay
 
-
-        //pangclick sa item sa loob ng recyclerview
-//        holder.itemView.setOnClickListener{
-//            onItemClick?.invoke(currentItem)
-//        }
+        // Set ImageButton image based on the pill status
+        val imageResource = if (currentPill.isTaken) {
+            R.drawable.icon_uncheck // if hindi pa taken = 0
+        } else {
+            R.drawable.icon_checked  //if taken = 1
+        }
+        holder.btnDonePill.setImageResource(imageResource)
 
     }
 }

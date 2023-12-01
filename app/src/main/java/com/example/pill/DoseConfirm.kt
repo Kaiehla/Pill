@@ -75,7 +75,11 @@ class DoseConfirm : AppCompatActivity() {
         pillDate: String
     ) {
         // Parse recurrence to get the number of days between doses
-        val recurrenceDays = recurrence.toInt()
+        val recurrenceDays = when (recurrence){
+            "Daily" -> 7
+            "Weekly" -> 1
+            else -> 7
+        }
 
         // Parse endDate to Date or use appropriate logic for your case
         val endDateDate = parseEndDateToDate(endDate)
