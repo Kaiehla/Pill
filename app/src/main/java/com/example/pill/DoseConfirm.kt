@@ -8,8 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DoseConfirm : AppCompatActivity() {
 
@@ -28,15 +26,17 @@ class DoseConfirm : AppCompatActivity() {
         // Retrieve data from intent extras
         val pillType = intent.getIntExtra("PillType", 0)
         val pillName = intent.getStringExtra("PillName")
-        val dosage = intent.getIntExtra("Dosage", 0)
+        val dosage = intent.getStringExtra("Dosage")
         val recurrence = intent.getStringExtra("Recurrence")
         val endDate = intent.getStringExtra("EndDate")
-        val timesOfDay = intent.getStringExtra("TimesOfDay")
+        val timesOfDayString = intent.getStringExtra("TimesOfDay")
         val epochTimeEndDate = intent.getLongExtra("EpochEndDate", 0)
+
+        val timesOfDayList = timesOfDayString?.split(", ") ?: emptyList()
 
         Log.d(
             "DoseConfirmData",
-            "PillName: $pillName, Dosage: $dosage, Recurrence: $recurrence, EndDate: $endDate, TimesOfDay: $timesOfDay, EpochEndDate: $epochTimeEndDate"
+            "PillName: $pillName, Dosage: $dosage, Recurrence: $recurrence, EndDate: $endDate, TimesOfDay: $timesOfDayList, EpochEndDate: $epochTimeEndDate"
         )
 
 
@@ -46,13 +46,13 @@ class DoseConfirm : AppCompatActivity() {
 
         // Display the information
         val doseMessage =
-            "You're now set to take $dosage dose(s) of $pillName, $recurrence until $endDate. Every $timesOfDay."
+            "You're now set to take $dosage dose(s) of $pillName, $recurrence until $endDate. Every ${timesOfDayList.joinToString(", ")}."
         doseDetail.text = doseMessage
 
         btnConfirm.setOnClickListener {
             // Insert to the database
             insertDataToDatabase(userId, pillType, pillName, dosage,
-                recurrence, epochTimeEndDate, timesOfDay, epochTimeEndDate)
+                recurrence, epochTimeEndDate, timesOfDayList, epochTimeEndDate)
 
 
             val homeActivity = Intent(this, Home::class.java)
@@ -65,27 +65,27 @@ class DoseConfirm : AppCompatActivity() {
         userId: Int,
         pillType: Int,
         pillName: String?,
-        dosage: Int,
+        dosage: String?,
         recurrence: String?,
         endDate: Long,
-        timesOfDay: String?,
+        timesOfDay: List<String>,
         epochTime: Long
     ) {
 
-        Log.d(
-            "InsertData",
-            "UserId: $userId, PillType: $pillType, PillName: $pillName, Dosage: $dosage, Recurrence: $recurrence, EndDate: $endDate, TimesOfDay: $timesOfDay, EpochTime: $epochTime"
-        )
+//        Log.d(
+//            "InsertData",
+//            "UserId: $userId, PillType: $pillType, PillName: $pillName, Dosage: $dosage, Recurrence: $recurrence, EndDate: $endDate, TimesOfDay: $timesOfDay, EpochTime: $epochTime"
+//        )
 
 
-        if (pillName != null && recurrence != null && endDate != null && timesOfDay != null) {
-            val insertedRowId = databaseHelper.insertPill(
+        if (pillName != null && recurrence != null && endDate != null && timesOfDay.isNotEmpty()) {
+            val insertedRowId = databaseHelper.insertPillNew(
                 PillClass(
                     0,
                     userId,
                     pillType,
                     pillName,
-                    dosage.toString(),
+                    dosage,
                     recurrence,
                     endDate,
                     timesOfDay,
@@ -99,7 +99,7 @@ class DoseConfirm : AppCompatActivity() {
                 "$insertedRowId - ${PillClass(0, userId, pillType, pillName, dosage.toString(), recurrence, endDate, timesOfDay, isTaken = false, endDate)}"
             )
 
-            if (insertedRowId != -1L) {
+            if (insertedRowId == 1L) {
                 Toast.makeText(this, "Pill Created Successfully", Toast.LENGTH_SHORT).show()
             } else {
                 // Validation if register process failed

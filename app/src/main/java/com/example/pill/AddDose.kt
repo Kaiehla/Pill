@@ -75,8 +75,8 @@ class AddDose : AppCompatActivity() {
             }
 
             val pillName = etPillName.text.toString()
-            val dosage = etDosage.text.toString().toInt()
-
+            val dosage = etDosage.text.toString()
+            val dosageNum = Integer.parseInt(dosage)
             // Check if the number of times of day matches the dosage
             val timesOfDayCount = listOf(
                 chipMorning.isChecked,
@@ -85,7 +85,7 @@ class AddDose : AppCompatActivity() {
                 chipDawn.isChecked
             ).count { it }
 
-            if (timesOfDayCount < 1 || timesOfDayCount > dosage){
+            if (timesOfDayCount < 1 || timesOfDayCount > dosageNum){
                 Toast.makeText(
                     this,
                     "You're selecting $timesOfDayCount time(s) of day, which is not equal to the dosage of $dosage",
@@ -96,7 +96,7 @@ class AddDose : AppCompatActivity() {
 
             val recurrence = if (rbDaily.isChecked) "Daily" else "Weekly"
             val endDate = etEndDate.text.toString()
-            val timesOfDay = StringBuilder()
+            val timesOfDayList = mutableListOf<String>()
 
             if (!(chipMorning.isChecked || chipAfternoon.isChecked || chipEvening.isChecked || chipDawn.isChecked)) {
                 Toast.makeText(
@@ -107,44 +107,29 @@ class AddDose : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val chipGroup = findViewById<ChipGroup>(R.id.cgTimesOfDay)
-
-            chipGroup.setOnCheckedChangeListener { group, checkedId ->
-                // 'checkedId' is the ID of the chip that was checked, or -1 if no chip is checked
-
-                // You can perform actions based on the checked chip, if needed
-                when (checkedId) {
-                    R.id.chipMorning -> {
-
-                    }
-                    R.id.chipAfternoon -> {
-
-                    }
-                    R.id.chipEvening -> {
-
-                    }
-                    R.id.chipDawn -> {
-
-                    }
-                }
-            }
-
             if (chipMorning.isChecked) {
-                timesOfDay.append("Morning, ")
+                timesOfDayList.add("Morning")
             }
             if (chipAfternoon.isChecked) {
-                timesOfDay.append("Afternoon, ")
+                timesOfDayList.add("Afternoon")
             }
             if (chipEvening.isChecked) {
-                timesOfDay.append("Evening, ")
+                timesOfDayList.add("Evening")
             }
             if (chipDawn.isChecked) {
-                timesOfDay.append("Dawn, ")
+                timesOfDayList.add("Dawn")
             }
 
-            if (timesOfDay.isNotEmpty()) {
-                timesOfDay.setLength(timesOfDay.length - 2)
+            if (timesOfDayList.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Please select at least one time of day",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
+
+            val timesOfDayString = timesOfDayList.joinToString(", ")
 
             // Ensure that an end date is selected
             if (endDate.isEmpty()) {
@@ -162,7 +147,7 @@ class AddDose : AppCompatActivity() {
                 putExtra("Dosage", dosage)
                 putExtra("Recurrence", recurrence)
                 putExtra("EndDate", endDate)
-                putExtra("TimesOfDay", timesOfDay.toString())
+                putExtra("TimesOfDay", timesOfDayString)
                 putExtra("EpochEndDate", epochTimeEndDate)
             }
 

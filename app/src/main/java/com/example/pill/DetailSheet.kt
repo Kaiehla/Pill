@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
     private lateinit var databaseHelper: DBHelper
@@ -67,10 +71,25 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         DoseImage.setImageResource(imagePillType)
 
         DoseTime.text = pill.recur
-        DoseEndDate.text = "Your medication will end until ${pill.endDate}"
+
+        val epochToNormalDate = convertEpochToDate(pill.endDate)
+        DoseEndDate.text = "Your medication will end until ${epochToNormalDate}"
         DoseTimesOfDay.text = "Your medication is scheduled at ${pill.timesOfDay}"
 
         //buttons
+        btnTake.setOnClickListener {
+            // Toggle the status (1 to 0 or 0 to 1)
+            val newStatus = !pill.isTaken
+            Log.d("HomeFragment", "New status value: $newStatus")
+
+            // Update the status in the database
+            databaseHelper.updatePillStatus(pill.id, newStatus)
+            Toast.makeText(requireContext(), "Taken Pill Successful", Toast.LENGTH_SHORT).show()
+            dismiss()
+            val intent = Intent(activity, Home::class.java)
+            startActivity(intent)
+
+        }
         btnDelete.setOnClickListener{
             // Call the deletePill function with the pillId
             val deletedRows = databaseHelper.deletePill(pill.id)
@@ -114,6 +133,17 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         }
 
 
+    }
+
+    fun convertEpochToDate(epoch: Long, pattern: String = "yyyy-MM-dd"): String {
+        try {
+            val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+            val date = Date(epoch)
+            return sdf.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return "Invalid Date"
+        }
     }
 
 

@@ -3,11 +3,11 @@ package com.example.pill
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
-import kotlinx.coroutines.handleCoroutineException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -103,21 +103,21 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         return user
     }
 
-    fun insertPill(pill: PillClass): Long {
-        val values = ContentValues().apply {
-            put(COLUMN_USER_ID_FK, pill.userId)
-            put(COLUMN_PILL_TYPE, pill.pillType)
-            put(COLUMN_PILL_NAME, pill.pillName)
-            put(COLUMN_DOSAGE, pill.dosage)
-            put(COLUMN_RECURRENCE, pill.recur) // Storing as String
-            put(COLUMN_END_DATE, pill.endDate)
-            put(COLUMN_TIMES_OF_DAY, pill.timesOfDay)
-            put(COLUMN_IS_TAKEN, if (pill.isTaken) 1 else 0)
-            put(COLUMN_MED_DATE, pill.pillDate)
-        }
-        val db = writableDatabase
-        return db.insert(TABLE_PILLS, null, values)
-    }
+//    fun insertPill(pill: PillClass): Long {
+//        val values = ContentValues().apply {
+//            put(COLUMN_USER_ID_FK, pill.userId)
+//            put(COLUMN_PILL_TYPE, pill.pillType)
+//            put(COLUMN_PILL_NAME, pill.pillName)
+//            put(COLUMN_DOSAGE, pill.dosage)
+//            put(COLUMN_RECURRENCE, pill.recur) // Storing as String
+//            put(COLUMN_END_DATE, pill.endDate)
+//            put(COLUMN_TIMES_OF_DAY, pill.timesOfDay)
+//            put(COLUMN_IS_TAKEN, if (pill.isTaken) 1 else 0)
+//            put(COLUMN_MED_DATE, pill.pillDate)
+//        }
+//        val db = writableDatabase
+//        return db.insert(TABLE_PILLS, null, values)
+//    }
 
 
     @SuppressLint("Range")
@@ -137,7 +137,8 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                     cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
                     cursor.getLong(cursor.getColumnIndex(COLUMN_END_DATE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)),
+                    // Convert the comma-separated string to a List<String>
+                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)).split(", "),
                     cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
                     cursor.getLong(cursor.getColumnIndex(COLUMN_MED_DATE))
                 )
@@ -203,6 +204,102 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         db.update(TABLE_PILLS, values, "$COLUMN_PILL_ID = ?", arrayOf(pillId.toString()))
 
         db.close()
+    }
+
+    fun insertPillNew(pill: PillClass): Long {
+        val db = this.writableDatabase
+        val currentDateEpoch = System.currentTimeMillis()
+
+        when (pill.recur) {
+            "Daily" -> {
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = currentDateEpoch
+
+                while (calendar.timeInMillis <= pill.endDate) {
+                    for (timeOfDay in pill.timesOfDay) {
+                        val medDate = calculateMedDate(calendar.timeInMillis, timeOfDay)
+
+                        val contentValues = ContentValues().apply {
+                            put(COLUMN_USER_ID_FK, pill.userId)
+                            put(COLUMN_PILL_TYPE, pill.pillType)
+                            put(COLUMN_PILL_NAME, pill.pillName)
+                            put(COLUMN_DOSAGE, pill.dosage)
+                            put(COLUMN_RECURRENCE, pill.recur)
+                            put(COLUMN_END_DATE, pill.endDate)
+                            put(COLUMN_TIMES_OF_DAY, timeOfDay)
+                            put(COLUMN_IS_TAKEN, if (pill.isTaken) 1 else 0)
+                            put(COLUMN_MED_DATE, medDate)
+                        }
+
+                        db.insert(TABLE_PILLS, null, contentValues)
+                    }
+
+                    // Move to the next day
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+                }
+            }
+            "Weekly" -> {
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = currentDateEpoch
+
+                val selectedDaysOfWeek = listOf(Calendar.MONDAY, Calendar.WEDNESDAY, Calendar.FRIDAY)
+
+                while (calendar.timeInMillis <= pill.endDate) {
+                    if (calendar.get(Calendar.DAY_OF_WEEK) in selectedDaysOfWeek) {
+                        for (timeOfDay in pill.timesOfDay) {
+                            val medDate = calculateMedDate(calendar.timeInMillis, timeOfDay)
+
+                            val contentValues = ContentValues().apply {
+                                put(COLUMN_USER_ID_FK, pill.userId)
+                                put(COLUMN_PILL_TYPE, pill.pillType)
+                                put(COLUMN_PILL_NAME, pill.pillName)
+                                put(COLUMN_DOSAGE, pill.dosage)
+                                put(COLUMN_RECURRENCE, pill.recur)
+                                put(COLUMN_END_DATE, pill.endDate)
+                                put(COLUMN_TIMES_OF_DAY, timeOfDay)
+                                put(COLUMN_IS_TAKEN, if (pill.isTaken) 1 else 0)
+                                put(COLUMN_MED_DATE, medDate)
+                            }
+
+                            db.insert(TABLE_PILLS, null, contentValues)
+                        }
+                    }
+
+                    // Move to the next week
+                    calendar.add(Calendar.WEEK_OF_YEAR, 1)
+                }
+            }
+            // Add more cases for other recurrence options if needed
+        }
+
+        return 1L // Return -1 if no insertion is performed
+    }
+
+    fun calculateMedDate(baseDate: Long, timesOfDay: String): Long {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = baseDate
+
+        // Adjust med_date based on the selected time of day
+        when (timesOfDay) {
+            "Morning" -> calendar.set(Calendar.HOUR_OF_DAY, 6)
+            "Afternoon" -> calendar.set(Calendar.HOUR_OF_DAY, 12)
+            "Night" -> calendar.set(Calendar.HOUR_OF_DAY, 18)
+            "Dawn" -> calendar.set(Calendar.HOUR_OF_DAY, 24)
+            // Add more cases if needed
+        }
+
+        // Set minutes and seconds to 0 for precision
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+
+        return calendar.timeInMillis
+    }
+
+    fun formatDate(dateEpoch: Long): String {
+        val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = dateEpoch
+        return sdf.format(calendar.time)
     }
 
 
