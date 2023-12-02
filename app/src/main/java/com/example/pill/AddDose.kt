@@ -134,6 +134,7 @@ class AddDose : AppCompatActivity() {
                         etPillName.text.toString(),
                         etDosage.text.toString()
                     )
+                    Toast.makeText(this, "Pill Updated Successfully", Toast.LENGTH_SHORT).show()
                     Log.i("Laman ng DB", "$id $selectedType ${etPillName.text.toString()} ${etDosage.text.toString()}")
                     val i = Intent(this, Home::class.java)
                     startActivity(i)
