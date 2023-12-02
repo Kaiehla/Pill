@@ -302,5 +302,25 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         return sdf.format(calendar.time)
     }
 
+    fun updatePill(pillId: Int, pillType: Int, pillName: String, pillDosage: String): Int {
+        val db = this.writableDatabase
+        val contentValues = ContentValues().apply {
+//            put(COLUMN_USER_ID_FK, pill.userId)
+            put(COLUMN_PILL_TYPE, pillType)
+            put(COLUMN_PILL_NAME, pillName)
+            put(COLUMN_DOSAGE, pillDosage)
+//            put(COLUMN_RECURRENCE, pill.recur)
+//            put(COLUMN_END_DATE, pill.endDate)
+//            put(COLUMN_TIMES_OF_DAY, pill.timesOfDay.joinToString(", "))
+//            put(COLUMN_IS_TAKEN, if (pill.isTaken) 1 else 0)
+//            put(COLUMN_MED_DATE, pill.pillDate)
+        }
+
+        val updateResult = db.update(TABLE_PILLS, contentValues, "$COLUMN_PILL_ID=?", arrayOf(pillId.toString()))
+
+        db.close()
+        return updateResult
+    }
+
 
 }

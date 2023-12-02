@@ -113,6 +113,17 @@ class DetailSheet(private val pill: PillClass) : BottomSheetDialogFragment() {
         }
 
         btnEdit.setOnClickListener {
+            // Add extra indicating whether it's in edit mode or not
+            val intent = Intent(requireActivity(), AddDose::class.java)
+            intent.putExtra("EditMode", true)
+            intent.putExtra("PillId", pill.id)
+            intent.putExtra("PillType", pill.pillType)
+            intent.putExtra("PillName", pill.pillName)
+            intent.putExtra("PillDosage", pill.dosage)
+            intent.putExtra("PillRecur", pill.recur)
+            intent.putExtra("PillEndDate", pill.endDate)
+
+            startActivity(intent)
 
         }
 

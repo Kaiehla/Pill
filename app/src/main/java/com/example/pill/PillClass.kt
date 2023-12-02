@@ -1,5 +1,6 @@
 package com.example.pill
 
+
 //data class PillClass(var dataImage:Int, var dataTitle:String)
 data class PillClass(
     val id: Int,
