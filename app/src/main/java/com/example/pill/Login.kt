@@ -22,7 +22,6 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val tvRegister = findViewById<TextView>(R.id.tvRegister)
-        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPass)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         databaseHelper = DBHelper(this)
@@ -42,12 +41,6 @@ class Login : AppCompatActivity() {
         tvRegister.setOnClickListener{
             val registerActivity = Intent(this, Register::class.java)
             startActivity(registerActivity)
-            finish()
-        }
-
-        tvForgotPassword.setOnClickListener{
-            val ForgotPassActivity = Intent(this, ForgotPassword::class.java)
-            startActivity(ForgotPassActivity)
             finish()
         }
     }
