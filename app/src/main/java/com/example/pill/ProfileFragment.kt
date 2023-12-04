@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var databaseHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,13 +35,6 @@ class ProfileFragment : Fragment() {
         btnHistory.setOnClickListener{
             val i = Intent(activity, DoseHistory::class.java)
             startActivity(i)
-        }
-
-        val btnEditUser = view.findViewById<Button>(R.id.btnEditUser)
-        btnEditUser.setOnClickListener{
-            val i = Intent(activity, Register::class.java)
-            startActivity(i)
-
         }
 
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
@@ -72,10 +67,29 @@ class ProfileFragment : Fragment() {
             activity?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
         // Retrieve data from SharedPreferences
-        val userId: Int? = sharedPreferences?.getInt("USER_ID", 0)
+        val userId: Int = sharedPreferences!!.getInt("USER_ID", 0)
         val userFname: String? = sharedPreferences?.getString("USER_FNAME", "")
         val tvFullName = view.findViewById<TextView>(R.id.tvFullName)
         tvFullName.text = "${userFname.orEmpty()}"
+
+        databaseHelper = DBHelper(requireContext())
+
+        val btnResetAll = view.findViewById<Button>(R.id.btnResetAll)
+        btnResetAll.setOnClickListener {
+            // Call the deletePill function with the pillId
+            val deletedRows = databaseHelper.deleteAllPillByUserId(userId)
+
+            // Check if the deletion was successful
+            if (deletedRows > 0) {
+                Toast.makeText(requireContext(), "Reset All Pills Successful", Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity, Home::class.java)
+                startActivity(intent)
+            } else {
+                // Deletion was not successful, show an error message or take appropriate action
+                // For example, display a toast message
+                Toast.makeText(requireContext(), "Reset operation failed", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return view
     }

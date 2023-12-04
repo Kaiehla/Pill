@@ -152,13 +152,59 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         return pillsList
     }
 
-//
+    @SuppressLint("Range")
+    fun getAllPillsByUserIdANDToday(userId: Int): List<PillClass> {
+        val pillsList = mutableListOf<PillClass>()
+
+        val currentDateEpoch = System.currentTimeMillis()
+        val selectQuery =
+            "SELECT * FROM $TABLE_PILLS WHERE $COLUMN_USER_ID_FK = ?  AND date($COLUMN_MED_DATE / 1000, 'unixepoch') = date(?, 'unixepoch')"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, arrayOf(userId.toString(), (currentDateEpoch / 1000).toString()))
+
+        if (cursor.moveToFirst()) {
+            do {
+                val pill = PillClass(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_ID)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID_FK)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_PILL_TYPE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_PILL_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DOSAGE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_RECURRENCE)),
+                    cursor.getLong(cursor.getColumnIndex(COLUMN_END_DATE)),
+                    // Convert the comma-separated string to a List<String>
+                    cursor.getString(cursor.getColumnIndex(COLUMN_TIMES_OF_DAY)).split(", "),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_IS_TAKEN)) == 0,
+                    cursor.getLong(cursor.getColumnIndex(COLUMN_MED_DATE))
+                )
+                pillsList.add(pill)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+//        db.close()
+
+        return pillsList
+    }
+
+
+    //
     fun deletePill(pillId: Int): Int {
         return writableDatabase.use { db ->
             db.delete(
                 TABLE_PILLS,
                 "$COLUMN_PILL_ID = ?",
                 arrayOf(pillId.toString())
+            )
+        }
+    }
+
+    fun deleteAllPillByUserId(userId: Int): Int {
+        return writableDatabase.use { db ->
+            db.delete(
+                TABLE_PILLS,
+                "$COLUMN_USER_ID_FK = ?",
+                arrayOf(userId.toString())
             )
         }
     }
@@ -283,8 +329,8 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         when (timesOfDay) {
             "Morning" -> calendar.set(Calendar.HOUR_OF_DAY, 6)
             "Afternoon" -> calendar.set(Calendar.HOUR_OF_DAY, 12)
-            "Night" -> calendar.set(Calendar.HOUR_OF_DAY, 18)
-            "Dawn" -> calendar.set(Calendar.HOUR_OF_DAY, 24)
+            "Evening" -> calendar.set(Calendar.HOUR_OF_DAY, 18)
+            "Dawn" -> calendar.set(Calendar.HOUR_OF_DAY, 23)
             // Add more cases if needed
         }
 

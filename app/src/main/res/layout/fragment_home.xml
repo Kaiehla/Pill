@@ -60,6 +60,15 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="70dp" />
 
+            <TextView
+                android:id="@+id/tvNoPillsFound"
+                style="@style/sub.twilight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textSize="24sp" />
+
 
         </LinearLayout>
 

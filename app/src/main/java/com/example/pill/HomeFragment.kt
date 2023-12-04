@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,12 @@ class HomeFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("USER_ID", 0)
         // Get all pills from the database
-        val pillsList = databaseHelper.getAllPillsByUserId(userId)
+        val pillsList = databaseHelper.getAllPillsByUserIdANDToday(userId)
+        if (pillsList.isEmpty()){
+            val tvNoPills = viewFragment.findViewById<TextView>(R.id.tvNoPillsFound)
+            tvNoPills.text = "No Pills found for today"
+        }
+
 
         // Set up RecyclerView
         val recyclerView = viewFragment.findViewById<RecyclerView>(R.id.recyclerView)

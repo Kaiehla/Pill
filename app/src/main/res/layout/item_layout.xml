@@ -63,6 +63,8 @@
             android:layout_marginTop="60dp"
             android:text="9:00 PM"
             android:textColor="@color/Twilight"
+            android:drawableStart="@drawable/icon_time"
+            android:drawablePadding="5dp"
             android:textSize="13sp" />
 
         <ImageButton

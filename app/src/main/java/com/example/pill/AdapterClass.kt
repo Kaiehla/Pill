@@ -8,6 +8,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
 
@@ -65,8 +68,8 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         }
         holder.rvPillTypeImage.setImageResource(imagePillType)
         holder.rvPillName.text = currentPill.pillName
-        holder.rvPillDetail.text = "${currentPill.dosage} pill, ${currentPill.recur}"
-        holder.rvTime.text = currentPill.timesOfDay.toString().replace("[", "").replace("]", "")
+        holder.rvPillDetail.text = "${currentPill.dosage} pill, once a ${if(currentPill.recur == "Daily") "day" else "week"}"
+        holder.rvTime.text = "${convertEpochToDateWithAMPM(currentPill.pillDate)}"
 
         // Set ImageButton image based on the pill status
         val imageResource = if (currentPill.isTaken) {
@@ -76,5 +79,16 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         }
         holder.btnDonePill.setImageResource(imageResource)
 
+    }
+
+    fun convertEpochToDateWithAMPM(epoch: Long, pattern: String = "hh:mm a"): String {
+        try {
+            val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+            val date = Date(epoch)
+            return sdf.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return "Invalid Date"
+        }
     }
 }

@@ -33,7 +33,11 @@ class DoseHistory : AppCompatActivity() {
 
         // Get all pills from the database
         val pillsList = databaseHelper.getAllPillsByUserId(userId)
-
+        if (pillsList.isEmpty()){
+            val tvNoPills = findViewById<TextView>(R.id.tvNoPillsFound)
+            tvNoPills.text = "No Past Pill Record"
+            tvNoPills.setTextSize(24f)
+        }
         // Set up RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.historyRecycler)
         val adapter = AdapterClass(pillsList) // Create your adapter
