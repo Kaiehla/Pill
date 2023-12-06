@@ -283,8 +283,12 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                             put(COLUMN_MED_DATE, medDate)
                         }
 
-                        db.insert(TABLE_PILLS, null, contentValues)
-                        scheduleNotification(medDate, pill.pillName)
+                        val insertedRowId = db.insert(TABLE_PILLS, null, contentValues)
+
+                        if (insertedRowId != -1L) {
+                            // Pass the insertedRowId as the notificationID
+                            scheduleNotification(insertedRowId.toInt(), medDate, pill.pillName)
+                        }
                     }
 
                     // Move to the next day
@@ -314,8 +318,12 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                                 put(COLUMN_MED_DATE, medDate)
                             }
 
-                            db.insert(TABLE_PILLS, null, contentValues)
-                            scheduleNotification(medDate, pill.pillName)
+                            val insertedRowId = db.insert(TABLE_PILLS, null, contentValues)
+
+                            if (insertedRowId != -1L) {
+                                // Pass the insertedRowId as the notificationID
+                                scheduleNotification(insertedRowId.toInt(), medDate, pill.pillName)
+                            }
 
                         }
                     }
@@ -330,7 +338,7 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         return 1L // Return -1 if no insertion is performed
     }
     @SuppressLint("ScheduleExactAlarm")
-    private fun scheduleNotification(medDate:Long, pillName: String) {
+    private fun scheduleNotification(notificationID: Int, medDate:Long, pillName: String) {
         val intent = Intent(context, NotificationService::class.java)
         val title = pillName
         val message = formatDate(medDate)

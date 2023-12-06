@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 
-const val notificationID = 1
 const val channelID = "channel1"
 const val titleExtra = "titleExtra"
 const val messageExtra = "messageExtra"
@@ -25,6 +24,8 @@ class NotificationService : BroadcastReceiver()
             PendingIntent.FLAG_MUTABLE
         )
 
+        val notificationID = intent.getIntExtra("NOTIFICATION_ID", 0)
+
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(intent.getStringExtra(titleExtra))
@@ -33,8 +34,7 @@ class NotificationService : BroadcastReceiver()
             .setAutoCancel(true) // Close the notification when clicked
             .build()
 
-        val manager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(notificationID, notification)
     }
 
