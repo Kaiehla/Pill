@@ -1,15 +1,14 @@
 package com.example.pill
 
-import android.R.attr.key
-import android.R.attr.value
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -45,26 +44,21 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private fun loginDatabase(email: String, password: String){
+
+
+    override fun onResume() {
+        super.onResume()
+
+        // Request notification permissions when the Login activity is resumed
+        requestNotificationPermissions()
+    }
+
+    private fun loginDatabase(email: String, password: String) {
         val user = databaseHelper.readUser(UserClass(0, email, password, ""))
-        if(user != null){
+        if (user != null) {
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             val homeActivity = Intent(this, Home::class.java)
 
-//            // Pass user details to Home activity solution 1
-//            homeActivity.putExtra("id", user.id)
-//            homeActivity.putExtra("email", user.email)
-//            homeActivity.putExtra("password", user.password)
-//            homeActivity.putExtra("fname", user.fname)
-//
-//            // Pass user details to Dose Confirm activity
-//            val DoseConfirm = Intent(this, DoseConfirm::class.java)
-//            DoseConfirm.putExtra("user_id", user.id)
-//
-//            //pangcheck nakukuha naman niya yung data from userclass
-//            //Log.i("Login", "Full Name: ${user.fname}")
-
-            //PERSEVERE: solution2 pass data throughout the whole app using shared preference
             // Save userId to SharedPreferences
             val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -76,8 +70,45 @@ class Login : AppCompatActivity() {
             finish()
 
         } else {
-            Toast.makeText(this, "Email and Password do not match, Please try again.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Email and Password do not match, Please try again.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
+    }
 
+    private fun requestNotificationPermissions() {
+
+        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+            // Show a dialog asking the user for permission
+            AlertDialog.Builder(this)
+                .setTitle("Notification Permission")
+                .setMessage("To receive notifications, please allow notifications for this app.")
+                .setPositiveButton("Allow") { dialog, which ->
+                    // Open the app notification settings
+                    val intent = Intent().apply {
+                        action = android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                        putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, packageName)
+                    }
+
+                    // Check if the intent can be resolved before starting the activity
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                    } else {
+                        // If the intent cannot be resolved, you may want to handle this case
+                        Toast.makeText(
+                            this,
+                            "Cannot open notification settings",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                .setNegativeButton("Don't Allow") { dialog, which ->
+                    // Handle the case where the user denies notification permission
+                    Toast.makeText(this, "Notifications are disabled", Toast.LENGTH_SHORT).show()
+                }
+                .show()
+        }
     }
 }
