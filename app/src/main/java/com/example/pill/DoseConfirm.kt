@@ -1,5 +1,8 @@
 package com.example.pill
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +19,7 @@ class DoseConfirm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dose_confirm)
+        createNotificationChannel()
 
         databaseHelper = DBHelper(this)
 
@@ -106,5 +110,16 @@ class DoseConfirm : AppCompatActivity() {
                 Toast.makeText(this, "Pill Failed, Please try again", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    @SuppressLint("NewApi")
+    private fun createNotificationChannel()
+    {
+        val name = "Notif Channel"
+        val desc = "A Description of the Channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

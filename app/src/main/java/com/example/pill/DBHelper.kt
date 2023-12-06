@@ -1,10 +1,15 @@
 package com.example.pill
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.getSystemService
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -256,6 +261,7 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         val db = this.writableDatabase
         val currentDateEpoch = System.currentTimeMillis()
 
+
         when (pill.recur) {
             "Daily" -> {
                 val calendar = Calendar.getInstance()
@@ -278,6 +284,7 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                         }
 
                         db.insert(TABLE_PILLS, null, contentValues)
+                        scheduleNotification(medDate, pill.pillName)
                     }
 
                     // Move to the next day
@@ -308,6 +315,8 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
                             }
 
                             db.insert(TABLE_PILLS, null, contentValues)
+                            scheduleNotification(medDate, pill.pillName)
+
                         }
                     }
 
@@ -319,6 +328,29 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         }
 
         return 1L // Return -1 if no insertion is performed
+    }
+    @SuppressLint("ScheduleExactAlarm")
+    private fun scheduleNotification(medDate:Long, pillName: String) {
+        val intent = Intent(context, NotificationService::class.java)
+        val title = pillName
+        val message = formatDate(medDate)
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time = medDate
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            pendingIntent
+        )
     }
 
     fun calculateMedDate(baseDate: Long, timesOfDay: String): Long {
