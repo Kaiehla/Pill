@@ -68,7 +68,7 @@ class AdapterClass(private val pills:List<PillClass>): RecyclerView.Adapter<Adap
         }
         holder.rvPillTypeImage.setImageResource(imagePillType)
         holder.rvPillName.text = currentPill.pillName
-        holder.rvPillDetail.text = "${currentPill.dosage} pill, once a ${if(currentPill.recur == "Daily") "day" else "week"}"
+        holder.rvPillDetail.text = "${currentPill.dosage} pill, ${if(currentPill.recur == "Daily") "Daily" else "Weekly"}"
         holder.rvTime.text = "${convertEpochToDateWithAMPM(currentPill.pillDate)}"
 
         // Set ImageButton image based on the pill status
