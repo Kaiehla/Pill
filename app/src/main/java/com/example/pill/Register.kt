@@ -31,19 +31,28 @@ class Register : AppCompatActivity() {
             //if may laman lahat and match si password and confirm password pasok boom
             if(userFName.trim()!="" && userEmail.trim()!="" && userPassword.trim()!="") {
                 if (userPassword.trim() == userConfirmPassword.trim())
-                    signupDatabase(userFName, userEmail, userPassword)
+                    if (isValidEmail(userEmail)) {
+                        signupDatabase(userFName, userEmail, userPassword)
+                    } else {
+                        Toast.makeText(this, "Try Again! Please enter valid email address", Toast.LENGTH_LONG).show()
+                    }
                 else
                     Toast.makeText(this, "Try Again! Password and Confirm Password do not match", Toast.LENGTH_LONG).show()
-            }
+                }
             else
                 Toast.makeText(this, "Try Again! Please complete all fields to continue", Toast.LENGTH_LONG).show()
-        }
+            }
 
         tvLogin.setOnClickListener{
             val loginActivity = Intent(this, Login::class.java)
             startActivity(loginActivity)
             finish()
         }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailRegex = Regex("^\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b")
+        return emailRegex.matches(email)
     }
 
     private fun signupDatabase(fname: String, email: String, password: String){

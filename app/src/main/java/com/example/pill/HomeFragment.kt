@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         val pillsList = databaseHelper.getAllPillsByUserIdANDToday(userId)
         if (pillsList.isEmpty()){
             val tvNoPills = viewFragment.findViewById<TextView>(R.id.tvNoPillsFound)
-            tvNoPills.text = "No Pills found for today"
+            tvNoPills.text = "Today's a pill-free day!\nAdd your meds now to stay on track."
         }
 
 
