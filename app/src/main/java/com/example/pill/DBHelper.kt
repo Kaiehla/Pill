@@ -366,12 +366,12 @@ class DBHelper(private val context: Context): SQLiteOpenHelper(context, DATABASE
         calendar.timeInMillis = baseDate
 
         // Adjust med_date based on the selected time of day
-        //every 7 hours interval of medicine intake
+        //every 6 hours interval of medicine intake
         when (timesOfDay) {
-            "Morning" -> calendar.set(Calendar.HOUR_OF_DAY, 7)
-            "Afternoon" -> calendar.set(Calendar.HOUR_OF_DAY, 14)
-            "Evening" -> calendar.set(Calendar.HOUR_OF_DAY, 20)
-            "Dawn" -> calendar.set(Calendar.HOUR_OF_DAY, 4)
+            "Morning" -> calendar.set(Calendar.HOUR_OF_DAY, 6)
+            "Afternoon" -> calendar.set(Calendar.HOUR_OF_DAY, 12)
+            "Evening" -> calendar.set(Calendar.HOUR_OF_DAY, 18)
+            "Dawn" -> calendar.set(Calendar.HOUR_OF_DAY, 23)
             // Add more cases if needed
         }
 
