@@ -160,6 +160,12 @@ class AddDose : AppCompatActivity() {
 
                 val pillName = etPillName.text.toString()
                 val dosage = etDosage.text.toString()
+
+                if (pillName.isEmpty() && dosage.isEmpty()) {
+                    Toast.makeText(this, "Please enter pill name and dosage", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 val dosageNum = Integer.parseInt(dosage)
                 // Check if the number of times of day matches the dosage
                 val timesOfDayCount = listOf(
@@ -224,18 +230,23 @@ class AddDose : AppCompatActivity() {
                 val epochTimeEndDate = convertDateToEpoch(endDate)
 
 
+                if (pillName.trim() != null && dosage.trim() != null){
+                    val intent = Intent(this, DoseConfirm::class.java).apply {
+                        putExtra("PillType", pillType)
+                        putExtra("PillName", pillName)
+                        putExtra("Dosage", dosage)
+                        putExtra("Recurrence", recurrence)
+                        putExtra("EndDate", endDate)
+                        putExtra("TimesOfDay", timesOfDayString)
+                        putExtra("EpochEndDate", epochTimeEndDate)
+                    }
 
-                val intent = Intent(this, DoseConfirm::class.java).apply {
-                    putExtra("PillType", pillType)
-                    putExtra("PillName", pillName)
-                    putExtra("Dosage", dosage)
-                    putExtra("Recurrence", recurrence)
-                    putExtra("EndDate", endDate)
-                    putExtra("TimesOfDay", timesOfDayString)
-                    putExtra("EpochEndDate", epochTimeEndDate)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Please enter pill name and dosage ", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
 
-                startActivity(intent)
             }
 
         }
